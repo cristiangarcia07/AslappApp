@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouteConstants } from './base/constants/routes';
+import { LayoutComponent } from './laoyuts/layout/layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'user/dashboard',
     pathMatch: 'full'
   },
+
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  }
+    path: RouteConstants.USER_ENVIERONMENT, component: LayoutComponent, children: [
+       {path: RouteConstants.DASHBOARD_PAGE, loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)}
+    ]
+  },
+  
 ];
 
 @NgModule({
