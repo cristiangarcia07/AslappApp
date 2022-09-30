@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
   public appPages = [
-    { title: 'Trash', url: '/home/', icon: 'trash' },
+    { title: 'Trash', url: '/user/dashboard', icon: 'home' },
   ];
   constructor() { }
 
