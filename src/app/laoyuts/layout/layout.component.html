@@ -3,8 +3,11 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Aslapp</ion-list-header>
-          <ion-note>cgarcia@asalud.clinic</ion-note>
+          <ion-list-header class="ion-text-center">
+            <ion-img [src]="this.logo" style="width: 150px; height: 150px;"></ion-img>
+          </ion-list-header>
+          <br>
+          <ion-note> Hola! cgarcia@asalud.clinic</ion-note>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
@@ -14,10 +17,6 @@
           </ion-menu-toggle>
         </ion-list>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-
-        </ion-list>
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>

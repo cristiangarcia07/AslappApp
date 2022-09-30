@@ -6,8 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
+
+  logo = '../../../assets/img/Aslapp-8.png'
+
   public appPages = [
-    { title: 'Trash', url: '/user/dashboard', icon: 'home' },
+    { title: 'Dashboard', url: '/user/dashboard', icon: 'home' },
+    { title: 'Examenes', url: '/user/examenes', icon: 'fitness' },
+    { title: 'Ordenes', url: '/user/ordenes', icon: 'document-attach' },
+    { title: 'Carrito', url: '/user/carrito', icon: 'cart' },
   ];
   constructor() { }
 
