@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { User } from 'src/app/base/models/generalModels';
+import { User,ExamenModel } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
+
 
 @Component({
   selector: 'app-exams',
@@ -14,7 +15,11 @@ export class ExamsPage implements OnInit {
   exams: any[] = [];
   id = "";
   exam: any;
-  results = [];
+  searchText;
+
+  searchMap = ['EXAMEN', 'CUP'];
+  cloner = [];
+
 
   constructor(
     private afs: FirestoreService,
@@ -50,6 +55,7 @@ export class ExamsPage implements OnInit {
             ...data.payload.doc.data()
           })
         });
+        this.cloner.push(this.exams)
       })
 
     } else {
@@ -61,15 +67,14 @@ export class ExamsPage implements OnInit {
             ...data.payload.doc.data()
           })
         });
+
+        this.cloner.push(this.exams)
       })
     }
 
   }
 
-  //FILTERS
-  search(event) {
-    const query = event.target.value.toLowerCase();
-    this.results = this.exams.filter(d => d.EXAMEN.toLowerCase().indexOf(query) > -1);
-  }
+
+  
 
 }

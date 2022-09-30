@@ -18,7 +18,8 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 @NgModule({
   declarations: [AppComponent,LayoutComponent,HeaderComponent],
-  imports: [BrowserModule, 
+  imports: [
+    BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
     provideFirebaseApp(() => initializeApp(environment.firebase)), 
