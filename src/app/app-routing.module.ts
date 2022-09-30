@@ -12,7 +12,8 @@ const routes: Routes = [
 
   {
     path: RouteConstants.USER_ENVIERONMENT, component: LayoutComponent, children: [
-       {path: RouteConstants.DASHBOARD_PAGE, loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)}
+       {path: RouteConstants.DASHBOARD_PAGE, loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)},
+       {path: 'examenes', loadChildren: () => import('./pages/lists/exams/exams.module').then( m => m.ExamsPageModule)},
     ]
   },
   

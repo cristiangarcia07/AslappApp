@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { finalize, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class FirestoreService {
   
   constructor(
-    private spinner: NgxSpinnerService,
     private afs: AngularFirestore,
     private aft:AngularFireStorage  
   ) { }
@@ -52,26 +50,5 @@ export class FirestoreService {
     return this.afs.collection(data,ref => ref.where(from, "==", where).limit(limit).orderBy('createdDate','desc')).snapshotChanges();
   }
 
-  uploadArchive(file:any,path:string,category:string):Promise<any>{
-    return new Promise(
-      resolve=>{
-        this.spinner.show();
-        const filePath = path +'/'+ category+Date.now().toString();
-        const ref  = this.aft.ref(filePath);
-        const task = ref.put(file);
-        task.snapshotChanges().pipe(
-          finalize(()=>{
-            ref.getDownloadURL().subscribe(res =>{
-              const URL = res;
-              resolve(URL);
-              this.spinner.hide();
-              return;
-            });
-          })
-        )
-      .subscribe();
-      }
-    )
-  }
 
 }

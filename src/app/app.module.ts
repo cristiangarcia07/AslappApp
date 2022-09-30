@@ -13,6 +13,8 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { LayoutComponent } from './laoyuts/layout/layout.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+
 
 @NgModule({
   declarations: [AppComponent,LayoutComponent,HeaderComponent],
@@ -23,7 +25,11 @@ import { HeaderComponent } from './components/header/header.component';
     provideAuth(() => getAuth()), 
     provideFirestore(() => getFirestore()), 
     provideStorage(() => getStorage())],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
+
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
