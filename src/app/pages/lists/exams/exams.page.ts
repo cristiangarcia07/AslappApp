@@ -22,8 +22,8 @@ export class ExamsPage implements OnInit {
 
 
   constructor(
-    private afs: FirestoreService,
-    private auth: AngularFireAuth,
+    private _afs: FirestoreService,
+    private _auth: AngularFireAuth,
   ) { }
 
   ngOnInit() {
@@ -32,9 +32,9 @@ export class ExamsPage implements OnInit {
 
 
   initAll() {
-    this.auth.user.subscribe(
+    this._auth.user.subscribe(
       (res) => {
-        this.afs.getDoc<User>('users', String(res?.uid)).subscribe(
+        this._afs.getDoc<User>('users', String(res?.uid)).subscribe(
           (res) => {
             this.getallExam(String(res?.convenio));
           }
@@ -47,7 +47,7 @@ export class ExamsPage implements OnInit {
 
     if (convenio === "undefined" || !convenio) {
 
-      this.afs.getAllDoc('Exams_DB').subscribe(res => {
+      this._afs.getAllDoc('Exams_DB').subscribe(res => {
         this.exams = []
         res.forEach((data: any) => {
           this.exams.push({
@@ -59,7 +59,7 @@ export class ExamsPage implements OnInit {
       })
 
     } else {
-      this.afs.getAllDoc('exams-' + convenio).subscribe(res => {
+      this._afs.getAllDoc('exams-' + convenio).subscribe(res => {
         this.exams = []
         res.forEach((data: any) => {
           this.exams.push({

@@ -4,13 +4,13 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 import { Observable, of, switchMap } from 'rxjs';
 import { FirestoreService } from './firestore.service';
 import { RoleValidator } from '../helpers/roleValidator';
-import { User } from "src/app/models/class";
+import { User } from 'src/app/models/class';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService extends RoleValidator {
-  uid!:string;
+  uid!: string;
   $user!: Observable<any>;
 
   constructor(private auth: AngularFireAuth, private afs: AngularFirestore, private af: FirestoreService) {
@@ -26,24 +26,24 @@ export class AuthService extends RoleValidator {
           return of(null);
         }
       )
-    )
+    );
   }
 
-  login(email:string,password: string): Promise<any>{
+  login(email: string,password: string): Promise<any>{
     return this.auth.signInWithEmailAndPassword(email,password);
   }
 
-  register(email:string, password:string): Promise<any>{
+  register(email: string, password: string): Promise<any>{
     return this.auth.createUserWithEmailAndPassword(email,password);
   }
 
-  getAuthWithProfile():Observable<any>{
-    this.uid = String(localStorage.getItem('uidUser'))
-    console.log(this.uid)
+  getAuthWithProfile(): Observable<any>{
+    this.uid = String(localStorage.getItem('uidUser'));
+    console.log(this.uid);
      return this.af.getDoc('user',this.uid);
   }
 
-  resetPass(email:string){
-    return this.auth.sendPasswordResetEmail(email)
+  resetPass(email: string){
+    return this.auth.sendPasswordResetEmail(email);
   }
 }
