@@ -1,12 +1,96 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
     <ion-title>Dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+  <ion-row>
+    <ion-col size="12" size-xs="12" size-md="6" size-lg="4">
+      <ion-card>
+        <ion-card-header>
+          <ion-icon name="bookmarks"></ion-icon>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-card-subtitle>Ordenes Pendientes</ion-card-subtitle>
+          <ion-card-title>{{pendiente}}</ion-card-title>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="12" size-xs="12" size-md="6" size-lg="4">
+      <ion-card>
+        <ion-card-header id="total">
+          <ion-icon name="bookmarks"></ion-icon>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-card-subtitle>Ordenes Totales</ion-card-subtitle>
+          <ion-card-title>{{ordens.length}}</ion-card-title>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="12" size-xs="12" size-md="6" size-lg="4">
+      <ion-card>
+        <ion-card-header id="cancel">
+          <ion-icon name="bookmarks"></ion-icon>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-card-subtitle>Ordenes Canceladas</ion-card-subtitle>
+          <ion-card-title>{{canceladas}}</ion-card-title>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button>
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col *ngFor="let item of ordens">
+      <ion-card>
+        <ion-card-header [ngClass]="{'card-header-warning': item.estado === 'pendiente',
+        'card-header-success': item.estado === 'completado'
+        }">
+          <ion-card-title>{{item.numRef}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label>
+              Estado
+            </ion-label>
+            <ion-text>
+              <p styleClass="mr-2" severity="success" *ngIf="this.item.estado === 'completado' " value="COMPLETO">
+              </p>
+              <p styleClass="mr-2" severity="warning" *ngIf="this.item.estado === 'pendiente' " value="PENDIENTE">
+              </p>
+            </ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Fecha de Creación
+            </ion-label>
+            <ion-text>
+              <p>{{this.item.fechaCrea}}</p>
+            </ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Nombre del Paciente
+            </ion-label>
+            <ion-text>
+              <p>{{item.paciente.NOMBRE| uppercase}}</p>
+            </ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Nombre del Medico
+            </ion-label>
+            <ion-text>
+              <p>{{item.doctor.nombre| uppercase}}</p>
+            </ion-text>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  
 </ion-content>
