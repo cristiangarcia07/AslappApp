@@ -8,11 +8,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar [debounce]="1000" (ionChange)="search($event)"></ion-searchbar>
+  <ion-searchbar [debounce]="1000" [(ngModel)]="searchText"></ion-searchbar>
 
   <ion-list>
-    <ion-item *ngFor="let result of exams">
-      <ion-label>{{ result.EXAMEN }}</ion-label>
+    <ion-item *ngFor="let result of exams | filter:searchText">
+      <ion-label>{{ $any(result).EXAMEN }}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
