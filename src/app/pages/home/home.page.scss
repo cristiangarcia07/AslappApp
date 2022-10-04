@@ -1,13 +1,26 @@
-ion-card-header {
-  background-color: orange;
+.pendient {
+  background-color: #e3f115ef;
+}
+ion-card-header ion-card-title {
+  color: #000;
+  font-weight: bold;
 }
 
-#total {
-  background-color: green;
+ion-col ion-button {
+  
+  font-size: 5em;
 }
 
-#cancel {
-  background-color: red;
+ion-button ion-icon {
+}
+
+.total {
+  background-color: #249729;
+}
+
+
+.cancel {
+  background-color: #ff2020e8;
 }
 
 ion-card {
