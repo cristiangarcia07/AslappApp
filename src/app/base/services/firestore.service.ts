@@ -7,18 +7,18 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
   providedIn: 'root'
 })
 export class FirestoreService {
-  
+
   constructor(
     private afs: AngularFirestore,
-    private aft:AngularFireStorage  
+    private aft: AngularFireStorage,
   ) { }
-  
-  createDoc(data:any,path:string,id:string){
+
+  createDoc(data: any,path: string, id: string){
     const collection = this.afs.collection(path);
     return collection.doc(id).set(data);
   }
 
-  createDocFrist<tipo>(data:any,path:string):Promise<any>{
+  createDocFrist<tipo>(data: any,path: string): Promise<any>{
     return this.afs.collection(path).doc<tipo>().set(data)
   }
 
@@ -30,12 +30,12 @@ export class FirestoreService {
     return this.afs.collection(path).doc(id).valueChanges;
   }
 
-  getAllDoc(data:string): Observable<any>{
+  getAllDoc(data: string): Observable<any>{
     return this.afs.collection(data).snapshotChanges();
   }
 
-  getAllDocWithParams(data:string,from:string,where:string): Observable<any>{
-    return this.afs.collection(data,ref => ref.where(from, "==", where)).snapshotChanges();
+  getAllDocWithParams(data: string,from: string,where: string): Observable<any>{
+    return this.afs.collection(data,ref => ref.where(from, '==', where)).snapshotChanges();
   }
 
   updateDoc(path: string, id:string,data:any):Promise<any>{
