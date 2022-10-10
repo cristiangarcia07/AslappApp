@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  logo = '../../../assets/img/Aslapp-8.png'
+  logo = '../../../assets/img/Aslapp-8.png';
 
   public appPages = [
     { title: 'Dashboard', url: '/user/dashboard', icon: 'home' },

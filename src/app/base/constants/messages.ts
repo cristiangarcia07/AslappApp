@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export class MessagesTS {
     // Auth Errors
     public static TOO_MANY_REQUESTS = 'Demasiadas solicitudes';
     public static INVALID_EMAIL = 'El email ingresado no es valido';
     public static WRONG_PASSWORD = 'La contraseña es incorrecta';
     public static USER_NOT_FOUND = 'El usuario ingresado no existe';
-    
     // Generic Error
     public static GENERIC_ERROR = 'Algo ha salido mal, por favor intente de nuevo';
 
@@ -20,7 +20,7 @@ export class MessagesTS {
     public static EDIT_SUCCESS = 'Se ha editado correctamente el elemento';
     public static DELETE_SUCCESS = 'Se ha eliminado correctamente el elemento';
     public static ADD_CART_SUCCESS = 'Se ha añadido al carrito correctamente';
-    public static TRANSACTION_SUCCESS = 'La transacción fue creada con exito'
+    public static TRANSACTION_SUCCESS = 'La transacción fue creada con exito';
     public static CHANGE_PASSWORD = 'La contraseña fue cambiada exitosamente';
     public static CHANGE_EMAIL = 'El correo fue cambiado exitosamente';
     public static CHANGE_NAME = 'El nombre fue cambiado exitosamente';
@@ -34,5 +34,4 @@ export class MessagesTS {
     // User Errors
     public static CHANGE_PASSWORD_ERROR = 'Las contraseñas no coinciden';
     public static CHANGE_EMAIL_ERROR = 'Los correos no coinciden';
-
 }
