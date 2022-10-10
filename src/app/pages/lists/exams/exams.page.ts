@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User,ExamenModel } from 'src/app/base/models/generalModels';
@@ -13,7 +14,7 @@ export class ExamsPage implements OnInit {
 
   detailModal = false;
   exams: any[] = [];
-  id = "";
+  id = '';
   exam: any;
   searchText;
 
@@ -23,11 +24,10 @@ export class ExamsPage implements OnInit {
 
   constructor(
     private _afs: FirestoreService,
-    private _auth: AngularFireAuth,
+    private _auth: AngularFireAuth
   ) { }
 
   ngOnInit() {
-    this.initAll();
   }
 
 
@@ -73,8 +73,5 @@ export class ExamsPage implements OnInit {
     }
 
   }
-
-
-  
 
 }
