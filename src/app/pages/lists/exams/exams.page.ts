@@ -28,6 +28,7 @@ export class ExamsPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.initAll();
   }
 
 
