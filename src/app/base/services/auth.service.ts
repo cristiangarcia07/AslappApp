@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { Observable, of, switchMap } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { FirestoreService } from './firestore.service';
 import { RoleValidator } from '../helpers/roleValidator';
 import { User } from 'src/app/base/models/generalModels';
@@ -17,7 +18,7 @@ export class AuthService extends RoleValidator {
     super();
 
     this.$user = this.auth.authState.pipe(
-      switchMap(
+      switchMap (
         (user) =>{
           if(user){
             return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
