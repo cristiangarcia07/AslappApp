@@ -11,7 +11,7 @@ export class FirestoreService {
 
   constructor(
     private afs: AngularFirestore,
-    private aft: AngularFireStorage
+    private aft: AngularFireStorage,
   ) { }
 
   createDoc(data: any,path: string,id: string){

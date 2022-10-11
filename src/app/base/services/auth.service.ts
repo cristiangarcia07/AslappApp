@@ -4,7 +4,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 import { Observable, of, switchMap } from 'rxjs';
 import { FirestoreService } from './firestore.service';
 import { RoleValidator } from '../helpers/roleValidator';
-import { User } from 'src/app/models/class';
+import { User } from 'src/app/base/models/generalModels';
 
 @Injectable({
   providedIn: 'root'

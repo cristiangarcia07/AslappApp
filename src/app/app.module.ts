@@ -19,12 +19,12 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 @NgModule({
   declarations: [AppComponent,LayoutComponent,HeaderComponent],
   imports: [
-    BrowserModule, 
-    IonicModule.forRoot(), 
-    AppRoutingModule, 
-    provideFirebaseApp(() => initializeApp(environment.firebase)), 
-    provideAuth(() => getAuth()), 
-    provideFirestore(() => getFirestore()), 
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage())],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
