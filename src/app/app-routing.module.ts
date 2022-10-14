@@ -15,6 +15,8 @@ const routes: Routes = [
     path: RouteConstants.USER_ENVIERONMENT, component: LayoutComponent, resolve:{user: UserResolver}, children: [
        {path: RouteConstants.DASHBOARD_PAGE, loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)},
        {path: 'examenes', loadChildren: () => import('./pages/lists/exams/exams.module').then( m => m.ExamsPageModule)},
+       {path: 'ordenes', loadChildren: () => import('./pages/lists/orders/orders.module').then(m => m.OrdersPageModule)},
+       {path: 'packages', loadChildren: () => import('./pages/lists/packages/packages.module').then(m => m.PackagesPageModule)}
     ]
   },
 

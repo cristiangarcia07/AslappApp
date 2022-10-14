@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>ORDENES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar [debounce]="1000" [(ngModel)]="searchText"></ion-searchbar>
+  <ion-item>
+    <ion-row>
+      <ion-list-header>
+        <ion-col>
+          FECHA DE CREACION
+        </ion-col>
+        <ion-col>
+          NOMBRE DEL PACIENTE
+        </ion-col>
+        <ion-col>
+          TIPO DE DOCUMENTO
+        </ion-col>
+        <ion-col>
+          NUMERO DE DOCUMENTO
+        </ion-col>
+        <ion-col>
+          ESTADO
+        </ion-col>
+      </ion-list-header>
+    </ion-row>
+    <ion-row *ngFor="let orden of ordens">
+      <ion-col>
+        {{ orden.fechaCrea }}
+      </ion-col>
+      <ion-col>
+        {{ orden.paciente.NOMBRE }}
+      </ion-col>
+      <ion-col>
+        {{ orden.paciente.TIPOID }}
+      </ion-col>
+      <ion-col>
+        {{ orden.paciente.NUMERO }}
+      </ion-col>
+      <ion-col>
+        {{ orden.estado }}
+      </ion-col>
+    </ion-row>
+  </ion-item>
+  
+</ion-content>
