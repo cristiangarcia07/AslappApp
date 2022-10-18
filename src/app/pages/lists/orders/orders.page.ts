@@ -12,7 +12,7 @@ import { FirestoreService } from 'src/app/base/services/firestore.service';
 export class OrdersPage implements OnInit {
   ordens!: any;
 
-  searchText!: any;
+  searchText;
 
   searchMap = ['fechaCrea','paciente.NOMBRE','paciente.TIPOID','paciente.NUMERO','numRef'];
 
@@ -23,18 +23,12 @@ export class OrdersPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.initAll();
+    this.initUser();
   }
-
-  initAll() {
+  initUser(){
     this._auth.user.subscribe(
-      (res) => {
-        this._afs.getDoc<User>('users', String(res?.uid)).subscribe(
-          // eslint-disable-next-line @typescript-eslint/no-shadow
-          (res) => {
-            this.getallData(String(res?.uid));
-          }
-        );
+      (res)=>{
+        this.getallData(String(res?.uid));
       }
     );
   }
@@ -49,7 +43,8 @@ export class OrdersPage implements OnInit {
         });
       });
 
-      this.ordens.forEach(ordn=> ordn.createdDate = ordn.createdDate.toDate());
+      this.ordens.forEach(ordn => ordn.createdDate = ordn.createdDate.toDate());
+      console.log(this.ordens);
   });}
 
 }

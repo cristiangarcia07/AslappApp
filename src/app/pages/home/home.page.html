@@ -57,8 +57,8 @@
     </ion-col>
     <ion-col *ngFor="let item of ordens" size="12" size-xs="12" size-md="4" size-lg="4">
       <ion-card>
-        <ion-card-header [ngClass]="{'card-header-warning': item.estado === 'pendiente',
-        'card-header-success': item.estado === 'completado'
+        <ion-card-header [ngClass]="{'pendient': item.estado === 'pendiente',
+        'total  ': item.estado === 'completado'
         }">
           <ion-card-title>{{item.numRef}}</ion-card-title>
         </ion-card-header>
@@ -67,11 +67,11 @@
             <ion-label>
               Estado
             </ion-label>
-            <ion-text>
-              <p styleClass="mr-2" severity="success" *ngIf="this.item.estado === 'completado' " value="COMPLETO">
-              </p>
-              <p styleClass="mr-2" severity="warning" *ngIf="this.item.estado === 'pendiente' " value="PENDIENTE">
-              </p>
+            <ion-text *ngIf="item.estado === 'completado'">
+              {{ item.estado | uppercase }}
+            </ion-text>
+            <ion-text *ngIf="item.estado === 'pendiente'">
+              {{ item.estado | uppercase }}
             </ion-text>
           </ion-item>
           <ion-item>
