@@ -21,7 +21,12 @@ ion-content {
   display: block;
 }
 
-#new ion-card-content ion-button {
-  margin: auto;
-  display: block;
+#new ion-card-content ion-icon {
+  font-size: 13em;
 }
+
+#new ion-card-content {
+  text-align: center;
+}
+
+
