@@ -10,7 +10,7 @@
   <ion-row>
     <ion-col size="12" size-xs="12" size-md="6" size-lg="4">
       <ion-card>
-        <ion-card-header class="pendient">
+        <ion-card-header  class="p-card-header-warning">
           <ion-icon name="bookmarks"></ion-icon>
         </ion-card-header>
         <ion-card-content>
@@ -21,7 +21,7 @@
     </ion-col>
     <ion-col size="12" size-xs="12" size-md="6" size-lg="4">
       <ion-card>
-        <ion-card-header class="total">
+        <ion-card-header class="p-card-header-success">
           <ion-icon name="bookmarks"></ion-icon>
         </ion-card-header>
         <ion-card-content>
@@ -32,7 +32,7 @@
     </ion-col>
     <ion-col size="12" size-xs="12" size-md="6" size-lg="4">
       <ion-card>
-        <ion-card-header class="cancel">
+        <ion-card-header class="p-card-header-danger">
           <ion-icon name="bookmarks"></ion-icon>
         </ion-card-header>
         <ion-card-content>
@@ -45,7 +45,7 @@
   <ion-row>
     <ion-col size="12" size-xs="12" size-md="4" size-lg="4">
       <ion-card id="new">
-        <ion-card-header class="total">
+        <ion-card-header class="p-card-header-success">
           <ion-card-title>NUEVA ORDEN</ion-card-title>
         </ion-card-header>
         <ion-card-content>
@@ -57,8 +57,8 @@
     </ion-col>
     <ion-col *ngFor="let item of ordens" size="12" size-xs="12" size-md="4" size-lg="4">
       <ion-card>
-        <ion-card-header [ngClass]="{'pendient': item.estado === 'pendiente',
-        'total  ': item.estado === 'completado'
+        <ion-card-header [ngClass]="{'p-card-header-warning': item.estado === 'pendiente',
+        'p-card-header-success': item.estado === 'completado'
         }">
           <ion-card-title>{{item.numRef}}</ion-card-title>
         </ion-card-header>
@@ -67,10 +67,13 @@
             <ion-label>
               Estado
             </ion-label>
-            <ion-text *ngIf="item.estado === 'completado'">
+            <ion-text *ngIf="item.estado === 'completado'" class="customer-badge status-qualified">
               {{ item.estado | uppercase }}
             </ion-text>
-            <ion-text *ngIf="item.estado === 'pendiente'">
+            <ion-text *ngIf="item.estado === 'pendiente'" class="customer-badge status-proposal">
+              {{ item.estado | uppercase }}
+            </ion-text>
+            <ion-text *ngIf="item.estado === 'cancelado'" class="customer-badge status-unqualified">
               {{ item.estado | uppercase }}
             </ion-text>
           </ion-item>
