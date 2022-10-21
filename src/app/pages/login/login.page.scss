@@ -1,8 +1,14 @@
 ion-content ion-item ion-card {
   margin: 10% auto;
   display: block;
-  width: 50%;
+  width: 55%;
   border: 1px solid #000;
+}
 
+@media screen and (max-width: 600px) {
+  ion-content ion-item ion-card {
+    width: 80%;
+    margin: 30% auto;
+  }
 }
 

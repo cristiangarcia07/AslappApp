@@ -76,7 +76,6 @@ export class PackagesPage implements OnInit {
         });
       });
 
-      console.log(this.paquetes);
     });
 
   }
@@ -105,7 +104,6 @@ export class PackagesPage implements OnInit {
       });
     }
 
-    console.log(this.exams);
   }
 
 }
