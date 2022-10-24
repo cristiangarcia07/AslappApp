@@ -30,8 +30,17 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
-            "scripts": [],
+            "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "src/global.scss",
+              "node_modules/primeng/resources/themes/lara-light-indigo/theme.css",
+              "src/theme/sakai.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
             "aot": false,
             "vendorChunk": true,
             "extractLicenses": false,
