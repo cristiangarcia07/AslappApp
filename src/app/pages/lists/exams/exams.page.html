@@ -11,8 +11,20 @@
   <ion-searchbar [debounce]="1000" [(ngModel)]="searchText"></ion-searchbar>
 
   <ion-list>
-    <ion-item *ngFor="let result of exams | filter:searchText">
-      <ion-label>{{ $any(result).EXAMEN }}</ion-label>
-    </ion-item>
+
+    <ion-item-sliding *ngFor="let result of exams | filter:searchText">
+      
+      <ion-item>
+        <ion-label>{{ $any(result).EXAMEN }}</ion-label>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option>Ver</ion-item-option>
+        <ion-item-option color="success">Agregar</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+
   </ion-list>
+
+
 </ion-content>
