@@ -16,7 +16,7 @@
           </ion-card-header>
           <ion-card-content>
             <ion-searchbar [debounce]="1000" [(ngModel)]="searchText"></ion-searchbar>
-            <ion-list *ngFor="let paquete of packages">
+            <ion-list *ngFor="let paquete of packages | filter:searchText">
               <ion-item-sliding>
                 <ion-item>
                   <ion-label>
@@ -41,9 +41,9 @@
             <ion-card-title>MIS PAQUETES</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <ion-searchbar [debounce]="1000" [(ngModel)]="searchText"></ion-searchbar>
+            <ion-searchbar [debounce]="1000" [(ngModel)]="searchText2"></ion-searchbar>
             
-            <ion-list *ngFor="let paquete of paquetes">
+            <ion-list *ngFor="let paquete of paquetes | filter: searchText2">
               <ion-item-sliding>
                 <ion-item>
                   <ion-label>

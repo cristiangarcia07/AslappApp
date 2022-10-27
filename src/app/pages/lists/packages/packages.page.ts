@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Users } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
+import { SpinnerService } from 'src/app/base/services/spinner.service';
 
 @Component({
   selector: 'app-packages',
@@ -25,16 +26,23 @@ export class PackagesPage implements OnInit {
   userId!: string;
   conventionId!: string;
 
-  searchText: any;
+  searchText;
+  searchText2;
+  searchMap = ['EXAMEN','SINONIMO','CUPS'];
 
   constructor(
     private _afs: FirestoreService,
     private _auth: AngularFireAuth,
+    private _spinner: SpinnerService
   ) { }
 
   ngOnInit() {
-    this.initUser();
-    this.getAllPackges();
+    this._spinner.showLoader('Cargando Paquetes');
+    setTimeout(() => {
+      this.initUser();
+      this.getAllPackges();
+      this._spinner.hideSpinner();
+    }, 1000);
   }
 
   getAllPackges(){

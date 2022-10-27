@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User,ExamenModel } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
+import { SpinnerService } from 'src/app/base/services/spinner.service';
 
 
 @Component({
@@ -24,11 +25,17 @@ export class ExamsPage implements OnInit {
 
   constructor(
     private _afs: FirestoreService,
-    private _auth: AngularFireAuth
+    private _auth: AngularFireAuth,
+    private _spinner: SpinnerService
   ) { }
 
   ngOnInit() {
+    this._spinner.showLoader('Cargando Examenes');
     this.initAll();
+
+    setTimeout(() => {
+      this._spinner.hideSpinner();
+    }, 1500);
   }
 
 

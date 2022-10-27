@@ -1,8 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { User } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
+import { SpinnerService } from 'src/app/base/services/spinner.service';
 
 @Component({
   selector: 'app-orders',
@@ -19,12 +19,18 @@ export class OrdersPage implements OnInit {
   constructor(
     private _afs: FirestoreService,
     private _auth: AngularFireAuth,
-
+    private _spinner: SpinnerService
   ) { }
 
   ngOnInit() {
-    this.initUser();
+    this._spinner.showLoader('Cargando Ordenes');
+    setTimeout(() => {
+      this.initUser();
+
+      this._spinner.hideSpinner();
+    }, 1000);
   }
+
   initUser(){
     this._auth.user.subscribe(
       (res)=>{
@@ -44,7 +50,6 @@ export class OrdersPage implements OnInit {
       });
 
       this.ordens.forEach(ordn => ordn.createdDate = ordn.createdDate.toDate());
-      console.log(this.ordens);
   });}
 
 }
