@@ -11,6 +11,12 @@ export interface User {
     convenio?: string | null;
 }
 
+export enum messageType {
+    success = 'p-card-header-success',
+    danger = 'p-card-header-danger',
+    warning = 'p-card-header-warning'
+}
+
 export class Cart {
     item?: ExamenModel;
     quantity?: string;

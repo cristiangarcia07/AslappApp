@@ -21,12 +21,14 @@ const routes: Routes = [
        {path: RouteConstants.ORDENS_LIST, loadChildren: () => import('./pages/lists/orders/orders.module').then(m => m.OrdersPageModule)},
        // eslint-disable-next-line max-len
        {path: RouteConstants.PACKAGES_LIST, loadChildren: () => import('./pages/lists/packages/packages.module').then(m => m.PackagesPageModule)},
+       {path: RouteConstants.CART_PAGE, loadChildren: () => import('./pages/cart/cart.module').then(m => m.CartPageModule)}
     ], canActivate: [AuthGuard]
   },
   {
     // eslint-disable-next-line max-len
     path: RouteConstants.LOGIN_PAGE, loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule), canActivate: [NoAuthGuard]
-  }
+  },
+
 ];
 
 @NgModule({

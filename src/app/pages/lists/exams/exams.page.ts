@@ -1,9 +1,10 @@
-/* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { User,ExamenModel } from 'src/app/base/models/generalModels';
+import { AlertController } from '@ionic/angular';
+import { User  } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
 import { SpinnerService } from 'src/app/base/services/spinner.service';
+import { MasterView } from 'src/app/base/views/masterView';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { SpinnerService } from 'src/app/base/services/spinner.service';
   templateUrl: './exams.page.html',
   styleUrls: ['./exams.page.scss'],
 })
-export class ExamsPage implements OnInit {
+export class ExamsPage extends MasterView  implements OnInit {
 
   detailModal = false;
   exams: any[] = [];
@@ -24,28 +25,30 @@ export class ExamsPage implements OnInit {
 
 
   constructor(
-    private _afs: FirestoreService,
-    private _auth: AngularFireAuth,
-    private _spinner: SpinnerService
-  ) { }
+    private afs: FirestoreService,
+    private auth: AngularFireAuth,
+    private spinner: SpinnerService,
+    private al: AlertController
+  ) {
+    super(al);
+  }
 
   ngOnInit() {
-    this._spinner.showLoader('Cargando Examenes');
+    this.spinner.showLoader('Cargando Examenes');
     this.initAll();
 
     setTimeout(() => {
-      this._spinner.hideSpinner();
+      this.spinner.hideSpinner();
     }, 1500);
   }
 
 
   initAll() {
-    this._auth.user.subscribe(
+    this.auth.user.subscribe(
       (res) => {
-        this._afs.getDoc<User>('users', String(res?.uid)).subscribe(
-          // eslint-disable-next-line @typescript-eslint/no-shadow
-          (res) => {
-            this.getallExam(String(res?.convenio));
+        this.afs.getDoc<User>('users', String(res?.uid)).subscribe(
+          (resp) => {
+            this.getallExam(String(resp.convenio));
           }
         );
       }
@@ -56,7 +59,7 @@ export class ExamsPage implements OnInit {
 
     if (convenio === 'undefined' || !convenio) {
 
-      this._afs.getAllDoc('Exams_DB').subscribe(res => {
+      this.afs.getAllDoc('Exams_DB').subscribe(res => {
         this.exams = [];
         res.forEach((data: any) => {
           this.exams.push({
@@ -68,7 +71,7 @@ export class ExamsPage implements OnInit {
       });
 
     } else {
-      this._afs.getAllDoc('exams-' + convenio).subscribe(res => {
+      this.afs.getAllDoc('exams-' + convenio).subscribe(res => {
         this.exams = [];
         res.forEach((data: any) => {
           this.exams.push({

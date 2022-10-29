@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
@@ -17,22 +16,22 @@ export class OrdersPage implements OnInit {
   searchMap = ['fechaCrea','paciente.NOMBRE','paciente.TIPOID','paciente.NUMERO','numRef'];
 
   constructor(
-    private _afs: FirestoreService,
-    private _auth: AngularFireAuth,
-    private _spinner: SpinnerService
+    private afs: FirestoreService,
+    private auth: AngularFireAuth,
+    private spinner: SpinnerService
   ) { }
 
   ngOnInit() {
-    this._spinner.showLoader('Cargando Ordenes');
+    this.spinner.showLoader('Cargando Ordenes');
     setTimeout(() => {
       this.initUser();
 
-      this._spinner.hideSpinner();
+      this.spinner.hideSpinner();
     }, 1000);
   }
 
   initUser(){
-    this._auth.user.subscribe(
+    this.auth.user.subscribe(
       (res)=>{
         this.getallData(String(res?.uid));
       }
@@ -40,7 +39,7 @@ export class OrdersPage implements OnInit {
   }
 
   getallData(uid: string){
-    this._afs.getAllDocWithParams('ordenes','created',uid).subscribe(res=>{
+    this.afs.getAllDocWithParams('ordenes','created',uid).subscribe(res=>{
       this.ordens = [];
       res.forEach((data: any): void => {
         this.ordens.push({

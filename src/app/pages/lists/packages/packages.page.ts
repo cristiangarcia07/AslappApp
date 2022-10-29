@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-underscore-dangle */
+
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Users } from 'src/app/base/models/generalModels';
@@ -31,22 +30,22 @@ export class PackagesPage implements OnInit {
   searchMap = ['EXAMEN','SINONIMO','CUPS'];
 
   constructor(
-    private _afs: FirestoreService,
-    private _auth: AngularFireAuth,
-    private _spinner: SpinnerService
+    private afs: FirestoreService,
+    private auth: AngularFireAuth,
+    private spinner: SpinnerService
   ) { }
 
   ngOnInit() {
-    this._spinner.showLoader('Cargando Paquetes');
+    this.spinner.showLoader('Cargando Paquetes');
     setTimeout(() => {
       this.initUser();
       this.getAllPackges();
-      this._spinner.hideSpinner();
+      this.spinner.hideSpinner();
     }, 1000);
   }
 
   getAllPackges(){
-    this._afs.getAllDoc('pkgAdmin').subscribe(res=>{
+    this.afs.getAllDoc('pkgAdmin').subscribe(res=>{
       this.packages = [];
       res.forEach((data: any) => {
         this.packages.push({
@@ -58,15 +57,15 @@ export class PackagesPage implements OnInit {
   }
 
   initUser(){
-    this._auth.currentUser.then(
+    this.auth.currentUser.then(
       (res)=>{
         localStorage.setItem('id',String(res?.uid));
         this.userId = String(res?.uid);
 
         this.getAllPaquetes(String(res?.uid));
-        this._afs.getDoc<Users>('users',String(res?.uid)).subscribe(
-          (res)=>{
-            this.getAllExams(String(res?.convenio));
+        this.afs.getDoc<Users>('users',String(res?.uid)).subscribe(
+          (resp)=>{
+            this.getAllExams(String(resp?.convenio));
           }
         );
       }
@@ -75,7 +74,7 @@ export class PackagesPage implements OnInit {
   }
 
   getAllPaquetes(uid: string){
-    this._afs.getAllDocWithParams('packages','created',uid).subscribe(res=>{
+    this.afs.getAllDocWithParams('packages','created',uid).subscribe(res=>{
       this.paquetes = [];
       res.forEach((data: any): void => {
         this.paquetes.push({
@@ -90,7 +89,7 @@ export class PackagesPage implements OnInit {
 
   getAllExams(convenio: string){
     if(convenio === 'undefined' || !convenio){
-      this._afs.getAllDoc('Exams_DB').subscribe(res=>{
+      this.afs.getAllDoc('Exams_DB').subscribe(res=>{
         this.exams = [];
         res.forEach((data: any) => {
           this.exams.push({
@@ -101,7 +100,7 @@ export class PackagesPage implements OnInit {
       });
 
     }else{
-      this._afs.getAllDoc('exams-'+convenio).subscribe(res=>{
+      this.afs.getAllDoc('exams-'+convenio).subscribe(res=>{
         this.exams = [];
         res.forEach((data: any) => {
           this.exams.push({

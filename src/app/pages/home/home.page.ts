@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
@@ -20,22 +18,22 @@ export class HomePage implements OnInit {
 
 
   constructor(
-    private _auth: AngularFireAuth,
-    private _afs: FirestoreService,
-    private _spinner: SpinnerService
+    private auth: AngularFireAuth,
+    private afs: FirestoreService,
+    private spinner: SpinnerService
   ) {
    }
 
   ngOnInit(): void {
-    this._spinner.showLoader('Cargando Ordenes');
+    this.spinner.showLoader('Cargando Ordenes');
     setTimeout(() => {
       this.initPage();
-      this._spinner.hideSpinner();
+      this.spinner.hideSpinner();
     }, 1000);
   }
 
   initPage(){
-    this._auth.user.subscribe(
+    this.auth.user.subscribe(
       res=>{
         this.uid = String(res?.uid);
         this.getAllOrdens(String(res?.uid));
@@ -44,7 +42,7 @@ export class HomePage implements OnInit {
   }
 
   getAllOrdens(uid: string){
-    this._afs.getAllDocWithParams('ordenes','created',uid).subscribe(res=>{
+    this.afs.getAllDocWithParams('ordenes','created',uid).subscribe(res=>{
       this.ordens = [];
       res.forEach((data: any) => {
         this.ordens.push({
@@ -53,9 +51,9 @@ export class HomePage implements OnInit {
         });
       });
 
-    this.canceladas = this.ordens.filter((res)=>res.estado?.includes('cancelado')).length;
+    this.canceladas = this.ordens.filter((resp)=>resp.estado?.includes('cancelado')).length;
 
-    this.pendiente = this.ordens.filter((res)=>res.estado?.includes('pendiente')).length;
+    this.pendiente = this.ordens.filter((resp)=>resp.estado?.includes('pendiente')).length;
     });
   }
 

@@ -16,7 +16,7 @@ export class LayoutComponent implements OnInit {
     { title: 'Examenes', url: '/user/exams', icon: 'fitness' },
     { title: 'Ordenes', url: '/user/ordens', icon: 'document-attach' },
     { title: 'Paquetes', url: '/user/packages', icon: 'albums' },
-    { title: 'Carrito', url: '/user/carrito', icon: 'cart' },
+    { title: 'Carrito', url: '/user/cart', icon: 'cart' },
   ];
   constructor(
     private router: Router,
