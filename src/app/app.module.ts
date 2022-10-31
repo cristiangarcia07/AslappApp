@@ -17,7 +17,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 
 @NgModule({
-  declarations: [AppComponent,LayoutComponent,HeaderComponent],
+  declarations: [AppComponent,LayoutComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

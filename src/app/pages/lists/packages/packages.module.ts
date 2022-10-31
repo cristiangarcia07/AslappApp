@@ -8,6 +8,7 @@ import { PackagesPageRoutingModule } from './packages-routing.module';
 
 import { PackagesPage } from './packages.page';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { HeaderComponentModule } from 'src/app/components/header/header.component.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     FormsModule,
     IonicModule,
     PackagesPageRoutingModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    HeaderComponentModule
   ],
   declarations: [PackagesPage]
 })

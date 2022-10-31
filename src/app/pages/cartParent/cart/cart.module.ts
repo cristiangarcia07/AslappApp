@@ -7,14 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { CartPageRoutingModule } from './cart-routing.module';
 
 import { CartPage } from './cart.page';
+import { HeaderComponentModule } from 'src/app/components/header/header.component.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CartPageRoutingModule
+    CartPageRoutingModule,
+    HeaderComponentModule
   ],
-  declarations: [CartPage]
+  declarations: [
+    CartPage,
+  ]
 })
 export class CartPageModule {}
