@@ -1,0 +1,80 @@
+<app-header *ngIf="this.examDetail" title="DETALLE EXAMEN {{this.examDetail.CUPS}}"></app-header>
+
+<ion-content *ngIf="this.examDetail">
+    <ion-item class="lab1">
+      <ion-label>CUPS</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{this.examDetail.CUPS}}</ion-label>
+    </ion-item>
+    <ion-item class="lab1">
+      <ion-label>EXAMEN</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label text-wrap>{{this.examDetail.EXAMEN}}</ion-label>
+    </ion-item>
+    <ion-item class="lab1">
+      <ion-label>AYUNO</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{this.examDetail.AYUNO}}</ion-label>
+    </ion-item>
+    <ion-item class="lab1">
+      <ion-label>ESTABILIDAD</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label text-wrap>{{this.examDetail.ESTABILIDAD}}</ion-label>
+    </ion-item>
+    <ion-item class="lab1">
+      <ion-label>MUESTRA</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label text-wrap>{{this.examDetail.MUESTRA}}</ion-label>
+    </ion-item>
+    <ion-item class="lab1">
+      <ion-label>PREPARACION</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label text-wrap>{{this.examDetail.PREPARACION}}</ion-label>
+    </ion-item>
+    <ion-item class="lab1">
+      <ion-label>REMISION</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{this.examDetail.REMISION}}</ion-label>
+    </ion-item>
+    <ion-item class="lab1">
+      <ion-label>SINONIMO</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{this.examDetail.SINONIMO}}</ion-label>
+    </ion-item>
+    <ion-item class="lab1">
+      <ion-label>TIEMPO</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{this.examDetail.TIEMPO}}</ion-label>
+    </ion-item>
+    <ion-item class="lab1">
+      <ion-label>UTILIDAD CLINICA</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label text-wrap>{{this.examDetail.UTILIDAD_CLINICA}}</ion-label>
+    </ion-item>
+    <ion-item class="lab1">
+      <ion-label>PRECIO</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>${{this.examDetail.PRECIO}}</ion-label>
+    </ion-item>
+    <ion-item class="lab1">
+      <ion-label>COMISION</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{this.examDetail.COMISION}}</ion-label>
+    </ion-item>
+</ion-content>
+
+<ion-content *ngIf="!this.examDetail">
+  <ion-label>Hubo un error</ion-label>
+</ion-content>

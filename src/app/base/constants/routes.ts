@@ -10,6 +10,7 @@ export class RouteConstants {
     public static CONVENTIONS_LIST= 'conventions';
     public static USERS_LIST = 'users';
     public static EXAMS_LIST = 'exams';
+    public static EXAM_DETAIL = 'exam';
     public static PRODUCTS_LIST = 'products';
     public static PACKAGES_LIST = 'packages';
     public static SITES_LIST = 'sites';

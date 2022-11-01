@@ -2,7 +2,7 @@
 <ion-content>
   <ion-item>
     <ion-row>
-      <ion-col size-sm="12" size-md="12" size-lg="6">
+      <ion-col size-sm="12" size-md="12" size-lg="6" size="12" size-xm="12">
         <ion-card>
           <ion-card-header class="p-card-header-primary">
             <ion-card-title>PAQUETES EN GENERAL</ion-card-title>
@@ -15,6 +15,7 @@
                   <ion-label>
                     {{ paquete.nombre }}
                   </ion-label>
+                  <ion-icon color="primary" name="chevron-back-outline"></ion-icon>
                 </ion-item>
                 <ion-item-options>
                   <ion-item-option>
@@ -23,25 +24,24 @@
                 </ion-item-options>
               </ion-item-sliding>
             </ion-list>
-
-
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col size-sm="12" size-md="12" size-lg="6">
+      <ion-col size-sm="12" size-md="12" size-lg="6" size-xs="12">
         <ion-card>
           <ion-card-header class="p-card-header-success">
             <ion-card-title>MIS PAQUETES</ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-searchbar [debounce]="1000" [(ngModel)]="searchText2"></ion-searchbar>
-            
+
             <ion-list *ngFor="let paquete of paquetes | filter: searchText2">
               <ion-item-sliding>
                 <ion-item>
                   <ion-label>
                     {{ paquete.nombre }}
                   </ion-label>
+                  <ion-icon color="primary" name="chevron-back-outline"></ion-icon>
                 </ion-item>
                 <ion-item-options>
                   <ion-item-option>

@@ -6,7 +6,6 @@ import { UserResolver } from './base/resolver/user.resolver';
 import { AuthGuard } from './guards/auth.guard';
 import { NoAuthGuard } from './guards/no-auth.guard';
 import { LayoutComponent } from './laoyuts/layout/layout.component';
-import { LoginPage } from './pages/login/login.page';
 
 const routes: Routes = [
   {
@@ -16,18 +15,18 @@ const routes: Routes = [
   },
 
   {
-    path: RouteConstants.USER_ENVIERONMENT, component: LayoutComponent, resolve:{user: UserResolver}, children: [
-       {path: RouteConstants.DASHBOARD_PAGE, loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)},
-       {path: RouteConstants.EXAMS_LIST, loadChildren: () => import('./pages/lists/exams/exams.module').then( m => m.ExamsPageModule)},
-       {path: RouteConstants.ORDENS_LIST, loadChildren: () => import('./pages/lists/orders/orders.module').then(m => m.OrdersPageModule)},
-       {path: RouteConstants.PACKAGES_LIST, loadChildren: () => import('./pages/lists/packages/packages.module').then(m => m.PackagesPageModule)},
-       {path: RouteConstants.CART_PAGE, loadChildren: () => import('./pages/cartParent/tabscart/tabscart.module').then(m => m.TabscartPageModule)
-      },
-   ], canActivate: [AuthGuard]
+    path: RouteConstants.USER_ENVIERONMENT, component: LayoutComponent, resolve: { user: UserResolver }, children: [
+      { path: RouteConstants.DASHBOARD_PAGE, loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule) },
+      { path: RouteConstants.EXAMS_LIST, loadChildren: () => import('./pages/lists/examsParent/exams/exams.module').then(m => m.ExamsPageModule) },
+      { path: RouteConstants.ORDENS_LIST, loadChildren: () => import('./pages/lists/orders/orders.module').then(m => m.OrdersPageModule) },
+      { path: RouteConstants.PACKAGES_LIST, loadChildren: () => import('./pages/lists/packages/packages.module').then(m => m.PackagesPageModule) },
+      { path: RouteConstants.CART_PAGE, loadChildren: () => import('./pages/cartParent/tabscart/tabscart.module').then(m => m.TabscartPageModule) },
+      { path: RouteConstants.EXAM_DETAIL, loadChildren: () => import('./pages/lists/examsParent/examdetail/examdetail.module').then(m => m.ExamdetailPageModule) }
+    ], canActivate: [AuthGuard]
   },
   {
     path: RouteConstants.LOGIN_PAGE, loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule), canActivate: [NoAuthGuard]
-  },
+  }
 ];
 
 @NgModule({
@@ -36,4 +35,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

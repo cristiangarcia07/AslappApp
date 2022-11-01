@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { User  } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
@@ -28,7 +29,8 @@ export class ExamsPage extends MasterView  implements OnInit {
     private afs: FirestoreService,
     private auth: AngularFireAuth,
     private spinner: SpinnerService,
-    private al: AlertController
+    private al: AlertController,
+    private rout: Router
   ) {
     super(al);
   }
@@ -84,6 +86,11 @@ export class ExamsPage extends MasterView  implements OnInit {
       });
     }
 
+  }
+
+  getExamData(exam: any) {
+    localStorage.setItem('exam', JSON.stringify(exam));
+    this.rout.navigateByUrl('/user/exam');
   }
 
 }

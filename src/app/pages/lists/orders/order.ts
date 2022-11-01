@@ -1,4 +1,4 @@
-import { IExamen } from '../exams/exam';
+import { IExamen } from '../examsParent/exams/exam';
 
 export interface Ordens {
   estado?: string;
