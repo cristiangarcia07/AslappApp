@@ -1,16 +1,19 @@
 
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Users } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
 import { SpinnerService } from 'src/app/base/services/spinner.service';
+import { MasterView } from 'src/app/base/views/masterView';
 
 @Component({
   selector: 'app-packages',
   templateUrl: './packages.page.html',
   styleUrls: ['./packages.page.scss'],
 })
-export class PackagesPage implements OnInit {
+export class PackagesPage extends MasterView implements OnInit {
   paquete: any[] = [];
   idPackage!: string;
 
@@ -32,8 +35,12 @@ export class PackagesPage implements OnInit {
   constructor(
     private afs: FirestoreService,
     private auth: AngularFireAuth,
-    private spinner: SpinnerService
-  ) { }
+    private spinner: SpinnerService,
+    private al: AlertController,
+    private rout: Router
+  ) {
+    super(al);
+  }
 
   ngOnInit() {
     this.spinner.showLoader('Cargando Paquetes');
@@ -111,6 +118,29 @@ export class PackagesPage implements OnInit {
       });
     }
 
+  }
+
+  filterExams(examens: Array<any>){
+    this.paquete = [];
+    examens.filter(
+      (res)=>{
+        console.log(res.id);
+        this.exams.map(i => {
+          if (String(res.id) === String(i.id)) {
+            this.paquete.push(i);
+            console.log('AÑADIDOS --->');
+            console.log(this.paquete);
+          } else {
+            console.log('No añadido');
+          }
+        });
+      });
+  }
+
+  viewDetails(exams: any) {
+    this.filterExams(exams);
+    localStorage.setItem('examsList', JSON.stringify(exams));
+    this.rout.navigateByUrl('user/package_detail');
   }
 
 }

@@ -1,0 +1,33 @@
+<app-header title="Detalle del Paquete"></app-header>
+<ion-content>
+  <ion-list *ngIf="this.exams">
+    <ion-list-header>
+      <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+        CUPS
+      </ion-col>
+      <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+        EXAMEN
+      </ion-col >
+      <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+        PRECIO
+      </ion-col>
+      <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+        AYUNO
+      </ion-col>
+    </ion-list-header>
+    <ion-item *ngFor="let item of this.exams">
+      <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+        {{item.CUPS}}
+      </ion-col>
+      <ion-col size="3" size-lg="3" size-sm="3" size-xs="3" >
+        {{item.NOMBRE_OMS}}
+      </ion-col>
+      <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+        {{item.PRECIO}}
+      </ion-col>
+      <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+        {{item.AYUNO}}
+      </ion-col>
+    </ion-item>
+  </ion-list>
+</ion-content>

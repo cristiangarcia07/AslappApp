@@ -19,14 +19,15 @@ const routes: Routes = [
       { path: RouteConstants.DASHBOARD_PAGE, loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule) },
       { path: RouteConstants.EXAMS_LIST, loadChildren: () => import('./pages/lists/examsParent/exams/exams.module').then(m => m.ExamsPageModule) },
       { path: RouteConstants.ORDENS_LIST, loadChildren: () => import('./pages/lists/orders/orders.module').then(m => m.OrdersPageModule) },
-      { path: RouteConstants.PACKAGES_LIST, loadChildren: () => import('./pages/lists/packages/packages.module').then(m => m.PackagesPageModule) },
+      { path: RouteConstants.PACKAGES_LIST, loadChildren: () => import('./pages/lists/packagesParent/packages/packages.module').then(m => m.PackagesPageModule) },
       { path: RouteConstants.CART_PAGE, loadChildren: () => import('./pages/cartParent/tabscart/tabscart.module').then(m => m.TabscartPageModule) },
-      { path: RouteConstants.EXAM_DETAIL, loadChildren: () => import('./pages/lists/examsParent/examdetail/examdetail.module').then(m => m.ExamdetailPageModule) }
+      { path: RouteConstants.EXAM_DETAIL, loadChildren: () => import('./pages/lists/examsParent/examdetail/examdetail.module').then(m => m.ExamdetailPageModule) },
+      { path: RouteConstants.PACKAGE_DETAIL, loadChildren: () => import('./pages/lists/packagesParent/packagedetail/packagedetail.module').then(m => m.PackagedetailPageModule) }
     ], canActivate: [AuthGuard]
   },
   {
     path: RouteConstants.LOGIN_PAGE, loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule), canActivate: [NoAuthGuard]
-  }
+  },
 ];
 
 @NgModule({

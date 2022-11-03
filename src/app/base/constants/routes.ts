@@ -13,6 +13,7 @@ export class RouteConstants {
     public static EXAM_DETAIL = 'exam';
     public static PRODUCTS_LIST = 'products';
     public static PACKAGES_LIST = 'packages';
+    public static PACKAGE_DETAIL = 'package_detail';
     public static SITES_LIST = 'sites';
     //COMPONENTS
     public static CART_PAGE = 'cart';
