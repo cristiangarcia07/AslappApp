@@ -68,12 +68,16 @@ export class CartPage  extends MasterView implements OnInit {
 
   totalCalculate(){
     if(this.exams){
+      let total = 0;
+
       this.exams.map(
         exam => {
-          this.total += (exam.item.PRECIO * exam.quantity);
+          total += exam.item.PRECIO * exam.quantity;
+          this.total = total;
         }
       );
     }
+
   }
 
   calculateComision(){
@@ -95,6 +99,8 @@ export class CartPage  extends MasterView implements OnInit {
       this.calculateComision();
     }else{
       localStorage.setItem('cart','[]');
+      this.totalCalculate();
+      this.calculateComision();
     }
   }
 
@@ -126,5 +132,10 @@ export class CartPage  extends MasterView implements OnInit {
     this.totalCalculate();
     this.getCartData();
     this.calculateComision();
+  }
+
+  emptyCart(): void {
+    localStorage.setItem('cart', '[]');
+    this.getCartData();
   }
 }

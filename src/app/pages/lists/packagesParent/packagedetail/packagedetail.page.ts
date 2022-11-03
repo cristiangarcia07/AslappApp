@@ -38,4 +38,5 @@ export class PackagedetailPage extends MasterView implements OnInit {
     this.exams = JSON.parse(localStorage.getItem('examsList'));
   }
 
+
 }
