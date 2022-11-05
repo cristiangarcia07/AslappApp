@@ -24,7 +24,7 @@ export class PacientPage implements OnInit {
   initForm() {
     this.form = this.formBuilder.group({
       nombre: ['',Validators.required],
-      tipoID: [''],
+      tipoId: [''],
       numero: [''],
       correo: [''],
       direccion: [''],
@@ -33,6 +33,10 @@ export class PacientPage implements OnInit {
       edad: this.age,
       fechaNam: [this.fechaNam,Validators.required]
     });
+  }
+
+  createOrder() {
+    console.log(this.form.value);
   }
 
   calculateAge(data: any){

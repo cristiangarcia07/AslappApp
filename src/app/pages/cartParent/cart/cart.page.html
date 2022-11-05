@@ -2,11 +2,11 @@
 
 <ion-content>
   <ion-row>
-    <ion-col style="font-weight: bold; font-size: 2rem;">
-      TOTAL: ${{this.total}}
+    <ion-col style="font-weight: bold; font-size: 1.8rem;">
+      TOTAL: ${{formatPrice(this.total)}}
     </ion-col>
     <ion-col style="text-align: right;">
-      <ion-button>Crear Orden</ion-button>
+      <ion-button >Cotizar</ion-button>
       <ion-button color="danger" (click)="emptyCart()"><ion-icon name="trash"></ion-icon></ion-button>
     </ion-col>
   </ion-row>

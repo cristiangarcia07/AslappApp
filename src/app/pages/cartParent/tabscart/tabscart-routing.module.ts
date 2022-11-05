@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CartPage } from '../cart/cart.page';
-import { PacientPage } from '../pacient/pacient.page';
+
 
 import { TabscartPage } from './tabscart.page';
 

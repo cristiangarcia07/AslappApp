@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PacientPage } from '../pacient/pacient.page';
 
 import { CartPage } from './cart.page';
 

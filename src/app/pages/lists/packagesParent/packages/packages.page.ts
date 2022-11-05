@@ -158,8 +158,43 @@ export class PackagesPage extends MasterView implements OnInit {
       const cart = JSON.parse(dataCart);
       cart.push(item);
       localStorage.setItem('cart', JSON.stringify(cart));
+      this.alert('El paquete fue añadido al carrito con exito', messageType.success);
     });
 
   }
 
+  async deletePackage(id: string){
+    const alert = this.al.create({
+      message: 'Quiere borrar el paquete?',
+      header: 'Borrar paquete',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: async () => {
+            const cancelAl = this.al.create({
+              message: 'Eliminacion de paquete cancelada'
+            });
+            await (await cancelAl).present();
+          }
+        },
+        {
+          text: 'Borrar',
+          handler: () => {
+            this.afs.deleteDoc('packages',id).then(
+              async ()=>{
+                const delAlert = this.al.create({
+                  message: 'Paquete Borrado con Exito'
+                });
+                await (await delAlert).present();
+              }
+            ).catch((err) => {
+            });
+          }
+        }
+      ]
+    });
+
+    await (await alert).present();
+  }
 }

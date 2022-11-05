@@ -2,7 +2,7 @@
 <ion-content>
   <ion-item>
     <ion-row>
-      <ion-col size-sm="12" size-md="12" size-lg="6" size="12" size-xm="12">
+      <ion-col size-sm="12" size-md="12" size-lg="6" size="12" size-xm="12" size="12">
         <ion-card>
           <ion-card-header class="p-card-header-primary">
             <ion-card-title>PAQUETES EN GENERAL</ion-card-title>
@@ -12,12 +12,12 @@
             <ion-list *ngFor="let paquete of packages | filter:searchText">
               <ion-item-sliding>
                 <ion-item>
+                  <ion-icon name="chevron-forward-outline" color="primary"></ion-icon>
                   <ion-label>
                     {{ paquete.nombre }}
                   </ion-label>
-                  <ion-icon color="primary" name="chevron-back-outline"></ion-icon>
                 </ion-item>
-                <ion-item-options>
+                <ion-item-options side="start">
                     <ion-item-option color="success" (click)="this.addPackage(paquete.exams)"><ion-icon name="bag-add-outline"></ion-icon></ion-item-option>
                     <ion-item-option (click)="this.viewDetails(paquete.exams)">
                     <ion-icon name="eye"></ion-icon>
@@ -28,7 +28,7 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col size-sm="12" size-md="12" size-lg="6" size-xs="12">
+      <ion-col size-sm="12" size-md="12" size-lg="6" size-xs="12" size="12">
         <ion-card>
           <ion-card-header class="p-card-header-success">
             <ion-card-title>MIS PAQUETES</ion-card-title>
@@ -39,12 +39,12 @@
             <ion-list *ngFor="let paquete of paquetes | filter: searchText2">
               <ion-item-sliding>
                 <ion-item>
+                  <ion-icon color="primary" name="chevron-forward-outline"></ion-icon>
                   <ion-label>
                     {{ paquete.nombre }}
                   </ion-label>
-                  <ion-icon color="primary" name="chevron-back-outline"></ion-icon>
                 </ion-item>
-                <ion-item-options>
+                <ion-item-options side="start">
                     <ion-item-option color="success" (click)="this.addPackage(paquete.exams)"><ion-icon name="bag-add-outline"></ion-icon></ion-item-option>
                   <ion-item-option (click)="this.viewDetails(paquete.exams)">
                     <ion-icon name="eye"></ion-icon>
@@ -52,7 +52,7 @@
                   <ion-item-option color="warning">
                     <ion-icon name="pencil"></ion-icon>
                   </ion-item-option>
-                  <ion-item-option color="danger">
+                  <ion-item-option color="danger" (click)="this.deletePackage(paquete.id)">
                     <ion-icon name="trash"></ion-icon>
                   </ion-item-option>
                 </ion-item-options>

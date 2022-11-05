@@ -128,6 +128,7 @@ export class CartPage  extends MasterView implements OnInit {
       this.exams = dataCar;
       localStorage.removeItem('cart');
       localStorage.setItem('cart', JSON.stringify(dataCar));
+      this.total = 0;
     }
     this.totalCalculate();
     this.getCartData();
@@ -137,5 +138,6 @@ export class CartPage  extends MasterView implements OnInit {
   emptyCart(): void {
     localStorage.setItem('cart', '[]');
     this.getCartData();
+    this.total = 0;
   }
 }
