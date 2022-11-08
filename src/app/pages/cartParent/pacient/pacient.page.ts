@@ -21,6 +21,11 @@ export class PacientPage implements OnInit {
     this.initForm();
   }
 
+  isFormValid(): boolean {
+    return this.form.disabled ? true : this.form.valid;
+  }
+
+
   initForm() {
     this.form = this.formBuilder.group({
       nombre: ['',Validators.required],

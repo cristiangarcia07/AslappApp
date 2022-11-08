@@ -18,7 +18,8 @@ const routes: Routes = [
     path: RouteConstants.USER_ENVIERONMENT, component: LayoutComponent, resolve: { user: UserResolver }, children: [
       { path: RouteConstants.DASHBOARD_PAGE, loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule) },
       { path: RouteConstants.EXAMS_LIST, loadChildren: () => import('./pages/lists/examsParent/exams/exams.module').then(m => m.ExamsPageModule) },
-      { path: RouteConstants.ORDENS_LIST, loadChildren: () => import('./pages/lists/orders/orders.module').then(m => m.OrdersPageModule) },
+      { path: RouteConstants.ORDENS_LIST, loadChildren: () => import('./pages/lists/orderParent/orders/orders.module').then(m => m.OrdersPageModule) },
+      { path: RouteConstants.ORDEN_DETAIL, loadChildren: () => import('./pages/lists/orderParent/orderdetail/orderdetail.module').then(m => m.OrderdetailPageModule) },
       { path: RouteConstants.PACKAGES_LIST, loadChildren: () => import('./pages/lists/packagesParent/packages/packages.module').then(m => m.PackagesPageModule) },
       { path: RouteConstants.CART_PAGE, loadChildren: () => import('./pages/cartParent/tabscart/tabscart.module').then(m => m.TabscartPageModule) },
       { path: RouteConstants.EXAM_DETAIL, loadChildren: () => import('./pages/lists/examsParent/examdetail/examdetail.module').then(m => m.ExamdetailPageModule) },

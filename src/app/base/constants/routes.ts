@@ -6,6 +6,7 @@ export class RouteConstants {
     public static USER_ENVIERONMENT = 'user';
     //PAGES LIST
     public static ORDENS_LIST = 'ordens';
+    public static ORDEN_DETAIL = 'orden';
     public static TRANSACTION_LIST = 'transactions';
     public static CONVENTIONS_LIST= 'conventions';
     public static USERS_LIST = 'users';

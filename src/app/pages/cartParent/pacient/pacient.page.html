@@ -2,7 +2,7 @@
 
 <ion-content>
   <form [formGroup]="form" (ngSubmit)="this.createOrder()">
-    <ion-item style="text-align: right;">
+    <ion-item>
       <ion-button color="success" type="submit" [disabled]="!this.form.valid">Generar Orden</ion-button>
     </ion-item>
     <ion-item>
@@ -37,7 +37,7 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Genero</ion-label>
-      <ion-select>
+      <ion-select formControlName="genero">
         <ion-select-option value="M">Masculino</ion-select-option>
         <ion-select-option value="F">Femenino</ion-select-option>
       </ion-select>

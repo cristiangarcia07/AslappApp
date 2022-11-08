@@ -41,13 +41,13 @@
         <ion-card-header class="p-card-header-success">
           <ion-card-title>NUEVA ORDEN</ion-card-title>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content routerLink="/user/cart">
             <ion-icon name="add-circle-outline" color="success"></ion-icon>
         </ion-card-content>
       </ion-card>
     </ion-col>
     <ion-col *ngFor="let item of ordens" size="12" size-xs="12" size-md="6" size-lg="4">
-      <ion-card>
+      <ion-card (click)="this.orderDetail(item)">
         <ion-card-header [ngClass]="{'p-card-header-warning': item.estado === 'pendiente',
         'p-card-header-success': item.estado === 'completado'
         }">

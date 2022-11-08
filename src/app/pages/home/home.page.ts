@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
 import { SpinnerService } from 'src/app/base/services/spinner.service';
 
@@ -20,7 +21,8 @@ export class HomePage implements OnInit {
   constructor(
     private auth: AngularFireAuth,
     private afs: FirestoreService,
-    private spinner: SpinnerService
+    private spinner: SpinnerService,
+    private rout: Router
   ) {
    }
 
@@ -55,6 +57,11 @@ export class HomePage implements OnInit {
 
     this.pendiente = this.ordens.filter((resp)=>resp.estado?.includes('pendiente')).length;
     });
+  }
+
+  orderDetail(orden: any) {
+    localStorage.setItem('orden', JSON.stringify(orden));
+    this.rout.navigateByUrl('/user/orden');
   }
 
 

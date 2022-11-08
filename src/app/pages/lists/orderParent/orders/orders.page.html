@@ -27,11 +27,10 @@
         <ion-item-option *ngIf="orden.estado === 'pendiente'" color="warning">
           <ion-icon name="pencil" ></ion-icon>
         </ion-item-option>
-        <ion-item-option *ngIf="orden.estado === 'pendiente'" color="danger">
+        <ion-item-option *ngIf="orden.estado === 'pendiente'" color="danger" (click)="this.deleteOrden(orden.id)">
           <ion-icon name="trash" ></ion-icon>
         </ion-item-option>
-        <ion-item-option>
-          
+        <ion-item-option (click)="this.getOrderDetail(orden)">
           <ion-icon name="eye"></ion-icon>
         </ion-item-option>
         

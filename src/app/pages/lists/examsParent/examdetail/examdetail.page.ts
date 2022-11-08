@@ -14,7 +14,6 @@ export class ExamdetailPage implements OnInit {
 
   constructor(
     private auth: AngularFireAuth,
-    private afs: FirestoreService
   ) { }
 
   ngOnInit() {
@@ -27,7 +26,7 @@ export class ExamdetailPage implements OnInit {
 
   initAll() {
     this.auth.user.subscribe(
-      (res) => {
+      () => {
         this.getExam();
       }
     );
