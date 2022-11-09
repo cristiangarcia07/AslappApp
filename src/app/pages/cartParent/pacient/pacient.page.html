@@ -6,12 +6,12 @@
       <ion-button color="success" type="submit" [disabled]="!this.form.valid">Generar Orden</ion-button>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Nombre Completo</ion-label>
+      <ion-label position="floating">Nombre Completo (*)</ion-label>
       <ion-input type="text" formControlName="nombre" name="name" oninput="this.value = this.value.toUpperCase()">
       </ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Telefono</ion-label>
+      <ion-label position="floating">Telefono (*)</ion-label>
       <ion-input type="number" formControlName="telefono"></ion-input>
     </ion-item>
     <ion-item>
@@ -28,7 +28,7 @@
       <ion-input type="text" formControlName="numero" name="numero"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Correo Electronico</ion-label>
+      <ion-label position="floating">Correo Electronico (*)</ion-label>
       <ion-input type="email" formControlName="correo" name="correo"></ion-input>
     </ion-item>
     <ion-item>
@@ -36,14 +36,14 @@
       <ion-input type="text" formControlName="direccion" name="direccion"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Genero</ion-label>
+      <ion-label position="floating">Genero (*)</ion-label>
       <ion-select formControlName="genero">
         <ion-select-option value="M">Masculino</ion-select-option>
         <ion-select-option value="F">Femenino</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Fecha de Nacimiento</ion-label>
+      <ion-label>Fecha de Nacimiento (*)</ion-label>
       <ion-input type="date" formControlName="fechaNam" #fecha (change)="calculateAge(fecha.value)"></ion-input>
     </ion-item>
     <ion-item>

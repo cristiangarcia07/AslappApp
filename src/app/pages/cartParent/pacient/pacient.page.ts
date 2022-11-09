@@ -31,7 +31,7 @@ export class PacientPage implements OnInit {
       nombre: ['',Validators.required],
       tipoId: [''],
       numero: [''],
-      correo: [''],
+      correo: ['', Validators.required],
       direccion: [''],
       telefono:['',Validators.required],
       genero:['',Validators.required],
