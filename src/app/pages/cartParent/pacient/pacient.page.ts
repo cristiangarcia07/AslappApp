@@ -1,5 +1,11 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
-import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { User } from 'src/app/base/models/generalModels';
+import { FirestoreService } from 'src/app/base/services/firestore.service';
 
 @Component({
   selector: 'app-pacient',
@@ -10,41 +16,127 @@ export class PacientPage implements OnInit {
   form: FormGroup;
   age = 0;
   fechaNam;
+  uidUser!: any;
+  uidOrd = '';
+  user!: User | any;
+  total = 0;
+  comision = 0;
+  observaciones = '';
+  filterDoc = 'number';
+  pagoRef = '';
+  idOrdn: any;
+  exams = [];
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private auth: AngularFireAuth,
+    private afs: FirestoreService,
+    private al: AlertController,
+    private rout: Router,
   ) {
 
   }
 
   ngOnInit() {
     this.initForm();
+    this.initPage();
   }
 
-  isFormValid(): boolean {
-    return this.form.disabled ? true : this.form.valid;
+  getCartData(){
+    if(!localStorage.getItem('cart')){
+      localStorage.setItem('cart','[]');
+      return ;
+    }
+    this.exams = JSON.parse(localStorage.getItem('cart'));
   }
 
+  initPage(){
+    this.auth.currentUser.then(
+      res=>{
+        this.uidUser = res?.uid;
+        this.afs.getDoc<User>('users',this.uidUser).subscribe(
+          (resp)=>{
+            this.user = resp;
+            this.getCartData();
+          }
+        );
+      }
+    );
+  }
 
   initForm() {
     this.form = this.formBuilder.group({
-      nombre: ['',Validators.required],
-      tipoId: [''],
-      numero: [''],
-      correo: ['', Validators.required],
-      direccion: [''],
-      telefono:['',Validators.required],
-      genero:['',Validators.required],
-      edad: this.age,
-      fechaNam: [this.fechaNam,Validators.required]
+      NOMBRE: ['', Validators.required],
+      TIPOID: [''],
+      NUMERO: [''],
+      CORREO: ['', Validators.required],
+      DIRECCION: [''],
+      TELEFONO: ['', Validators.required],
+      GENERO: ['', Validators.required],
+      EDAD: this.age,
+      FECHANAM: [this.fechaNam, Validators.required],
     });
   }
 
-  createOrder() {
-    console.log(this.form.value);
+  async createOrder() {
+    const ordn = 'ORDN-' + this.refOrde();
+    this.idOrdn = ordn;
+    console.log(ordn);
+    console.log(this.idOrdn);
+
+    const ordAl = this.al.create({
+      header: 'Crear Orden',
+      message: 'Quiere crear la orden?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: async () => {
+            const cancel = this.al.create({
+              message: 'La creacion de la orden se ha cancelado'
+            });
+
+            await (await cancel).present();
+          }
+        },
+        {
+          text: 'Crear',
+          handler: () => {
+            this.afs.createDocFrist({
+              paciente: this.form.value,
+              exams: this.exams,
+              estado: 'pendiente',
+              doctor: this.user,
+              created: this.uidUser,
+              fechaCrea: new Date().toLocaleDateString(),
+              createdDate: new Date(),
+              total: this.total,
+              numRef: ordn,
+              comision: this.comision,
+              linkvital: '',
+              pagoRef: '',
+              adjunto: '',
+              observaciones: this.observaciones,
+            }, 'ordenes').then(
+              async () => {
+                localStorage.removeItem('cart');
+                console.log('id--->' + this.idOrdn);
+                const alert = this.al.create({
+                  message: 'La orden fue creada exitosamente'
+                });
+                this.rout.navigateByUrl('/user/ordens');
+                await (await alert).present();
+              }
+            );
+          }
+        }
+      ]
+    });
+
+    await (await ordAl).present();
   }
 
-  calculateAge(data: any){
+  calculateAge(data: any) {
     const today = new Date();
     const birthDate = new Date(data);
     let age = today.getFullYear() - birthDate.getFullYear();
@@ -54,13 +146,24 @@ export class PacientPage implements OnInit {
       age--;
     }
 
-   this.age = age;
-   this.fechaNam = birthDate.toLocaleDateString();
-   console.log(this.fechaNam);
-   console.log(this.age);
+    this.age = age;
+    this.fechaNam = birthDate.toLocaleDateString();
+    console.log(this.fechaNam);
+    console.log(this.age);
 
-   this.form.patchValue({edad: this.age});
+    this.form.patchValue({ edad: this.age });
 
+  }
+
+  refOrde() {
+    const data = new Date();
+    console.log(String(data));
+    const ref = String(data.getFullYear()) + String(data.getDate())
+      + String(data.getMonth()) + String(data.getHours() +
+        String(data.getSeconds()) + String(data.getMinutes())
+      );
+
+    return String(ref);
   }
 
 }

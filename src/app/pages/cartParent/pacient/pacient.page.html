@@ -7,16 +7,16 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Nombre Completo (*)</ion-label>
-      <ion-input type="text" formControlName="nombre" name="name" oninput="this.value = this.value.toUpperCase()">
+      <ion-input type="text" formControlName="NOMBRE" name="name" oninput="this.value = this.value.toUpperCase()">
       </ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Telefono (*)</ion-label>
-      <ion-input type="number" formControlName="telefono"></ion-input>
+      <ion-input type="number" formControlName="TELEFONO"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Tipo de Documento</ion-label>
-      <ion-select formControlName="tipoId" name="tipoId">
+      <ion-select formControlName="TIPOID" name="tipoId">
         <ion-select-option value="CC">Cedula de Ciudadania</ion-select-option>
         <ion-select-option value="TI">Tarjeta de Identidad</ion-select-option>
         <ion-select-option value="PE">Pasaporte Extranjero</ion-select-option>
@@ -25,30 +25,34 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Numero de Documento</ion-label>
-      <ion-input type="text" formControlName="numero" name="numero"></ion-input>
+      <ion-input type="text" formControlName="NUMERO" name="numero"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Correo Electronico (*)</ion-label>
-      <ion-input type="email" formControlName="correo" name="correo"></ion-input>
+      <ion-input type="email" formControlName="CORREO" name="correo"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Direccion</ion-label>
-      <ion-input type="text" formControlName="direccion" name="direccion"></ion-input>
+      <ion-input type="text" formControlName="DIRECCION" name="direccion"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Genero (*)</ion-label>
-      <ion-select formControlName="genero">
+      <ion-select formControlName="GENERO">
         <ion-select-option value="M">Masculino</ion-select-option>
         <ion-select-option value="F">Femenino</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>Fecha de Nacimiento (*)</ion-label>
-      <ion-input type="date" formControlName="fechaNam" #fecha (change)="calculateAge(fecha.value)"></ion-input>
+      <ion-input type="date" formControlName="FECHANAM" #fecha (change)="calculateAge(fecha.value)"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Edad</ion-label>
       <ion-label>{{this.age}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Observaciones</ion-label>
+      <ion-textarea [value]="this.observaciones"></ion-textarea>
     </ion-item>
   </form>
 </ion-content>
