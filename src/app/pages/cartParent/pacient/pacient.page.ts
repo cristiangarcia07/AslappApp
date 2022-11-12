@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
+
 
 @Component({
   selector: 'app-pacient',
@@ -31,7 +32,7 @@ export class PacientPage implements OnInit {
     private formBuilder: FormBuilder,
     private auth: AngularFireAuth,
     private afs: FirestoreService,
-    private al: AlertController,
+    private toast: ToastController,
     private rout: Router,
   ) {
 
@@ -84,16 +85,20 @@ export class PacientPage implements OnInit {
     console.log(ordn);
     console.log(this.idOrdn);
 
-    const ordAl = this.al.create({
+    const ordAl = this.toast.create({
       header: 'Crear Orden',
       message: 'Quiere crear la orden?',
+      color: 'primary',
+      position: 'middle',
       buttons: [
         {
           text: 'Cancelar',
           role: 'cancel',
           handler: async () => {
-            const cancel = this.al.create({
-              message: 'La creacion de la orden se ha cancelado'
+            const cancel = this.toast.create({
+              color: 'danger',
+              message: 'La creacion de la orden se ha cancelado',
+              duration: 1500
             });
 
             await (await cancel).present();
@@ -119,13 +124,16 @@ export class PacientPage implements OnInit {
               observaciones: this.observaciones,
             }, 'ordenes').then(
               async () => {
-                localStorage.removeItem('cart');
+                localStorage.setItem('cart', '[]');
                 console.log('id--->' + this.idOrdn);
-                const alert = this.al.create({
-                  message: 'La orden fue creada exitosamente'
+                const alert = this.toast.create({
+                  message: 'La orden fue creada exitosamente',
+                  position: 'top',
+                  color: 'success',
+                  duration: 1500
                 });
-                this.rout.navigateByUrl('/user/ordens');
                 await (await alert).present();
+                document.location.reload();
               }
             );
           }

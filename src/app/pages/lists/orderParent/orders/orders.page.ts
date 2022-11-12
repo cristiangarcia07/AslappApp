@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {  Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
 import { SpinnerService } from 'src/app/base/services/spinner.service';
 
@@ -21,7 +21,7 @@ export class OrdersPage implements OnInit {
     private afs: FirestoreService,
     private auth: AngularFireAuth,
     private spinner: SpinnerService,
-    private al: AlertController,
+    private al: ToastController,
     private rout: Router
   ) { }
 
@@ -61,13 +61,17 @@ export class OrdersPage implements OnInit {
     const confirmAl = this.al.create({
       header: 'Eliminar Orden?',
       message: 'Desea Eliminar la orden?',
+      color: 'danger',
+      position: 'middle',
       buttons: [
         {
           text: 'Cancelar',
           role: 'cancel',
           handler: async () => {
             const cancelAl = this.al.create({
-              message: 'Eliminacion de orden cancelada'
+              message: 'Eliminacion de orden cancelada',
+              color: 'success',
+              position: 'top'
             });
             await (await cancelAl).present();
           }
@@ -79,14 +83,18 @@ export class OrdersPage implements OnInit {
               (async () => {
                 alert = this.al.create({
                   message: 'Orden Eliminada con Exito',
-                  header: 'Orden Eliminada'
+                  header: 'Orden Eliminada',
+                  position: 'top',
+                  color: 'warning'
                 });
                 await (await alert).present();
               })
               .catch(async () => {
                 alert = this.al.create({
                   header: 'Error',
-                  message: 'Error al eliminar la orden'
+                  message: 'Error al eliminar la orden',
+                  color: 'danger',
+                  position: 'top'
                 });
 
                 await (await alert).present();

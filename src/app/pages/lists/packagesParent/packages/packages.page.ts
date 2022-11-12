@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { messageType, Users } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
 import { SpinnerService } from 'src/app/base/services/spinner.service';
@@ -36,7 +36,7 @@ export class PackagesPage extends MasterView implements OnInit {
     private afs: FirestoreService,
     private auth: AngularFireAuth,
     private spinner: SpinnerService,
-    private al: AlertController,
+    private al: ToastController,
     private rout: Router
   ) {
     super(al);
@@ -144,10 +144,10 @@ export class PackagesPage extends MasterView implements OnInit {
   }
 
 
-  addPackage(examens: any){
+  async addPackage(examens: any){
     this.filterExams(examens);
 
-    this.paquete.map(pac => {
+    this.paquete.map(async (pac) => {
       const dataCart = localStorage.getItem('cart');
 
       const item = {
@@ -158,8 +158,22 @@ export class PackagesPage extends MasterView implements OnInit {
       const cart = JSON.parse(dataCart);
       cart.push(item);
       localStorage.setItem('cart', JSON.stringify(cart));
-      this.alert('El paquete fue añadido al carrito con exito', messageType.success);
+      const packAl = this.al.create({
+        message: 'Paquete añadido al carrito',
+        color: 'success',
+        duration: 2000,
+        position: 'top',
+        buttons: [
+          {
+            text: 'cerrar',
+            role: 'cancel'
+          }
+        ]
+      });
+      await (await packAl).present();
+
     });
+
 
   }
 

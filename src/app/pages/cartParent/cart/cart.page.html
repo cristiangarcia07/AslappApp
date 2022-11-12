@@ -6,7 +6,7 @@
       TOTAL: ${{formatPrice(this.total)}}
     </ion-col>
     <ion-col style="text-align: right;">
-      <ion-button >Cotizar</ion-button>
+      <ion-button (click)="this.genCotiza()">Cotizar</ion-button>
       <ion-button color="danger" (click)="emptyCart()"><ion-icon name="trash"></ion-icon></ion-button>
     </ion-col>
   </ion-row>

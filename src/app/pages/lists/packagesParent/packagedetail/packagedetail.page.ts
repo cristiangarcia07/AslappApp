@@ -10,16 +10,12 @@ import { MasterView } from 'src/app/base/views/masterView';
   templateUrl: './packagedetail.page.html',
   styleUrls: ['./packagedetail.page.scss'],
 })
-export class PackagedetailPage extends MasterView implements OnInit {
+export class PackagedetailPage implements OnInit {
   exams: any;
 
   constructor(
-    private afs: FirestoreService,
     private auth: AngularFireAuth,
-    private spinner: SpinnerService,
-    private al: AlertController,
   ) {
-    super(al);
   }
 
   ngOnInit() {

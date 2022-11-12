@@ -2,7 +2,7 @@
 
 <ion-content *ngIf="this.orderDetail">
   <ion-item>
-    <ion-button color="success" size="medium"><ion-icon name="receipt-outline" size="medium"></ion-icon></ion-button>
+    <ion-button color="success" size="medium" (click)="this.generatePdf(this.orderDetail)"><ion-icon name="receipt-outline" size="medium"></ion-icon></ion-button>
   </ion-item>
   <ion-item class="lab1">
     <ion-label>NUMERO DE ORDEN</ion-label>
