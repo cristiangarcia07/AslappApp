@@ -12,7 +12,6 @@ import { Cart } from '../../../base/models/generalModels';
 
 PdfMakeWrapper.setFonts(pdfFonts);
 type TableRow = [string,string,string];
-type Row = [string,string];
 
 @Component({
   selector: 'app-cart',
