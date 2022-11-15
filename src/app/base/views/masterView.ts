@@ -1,4 +1,4 @@
-import { ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Cell, Img, ITable, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import { Cart } from '../models/generalModels';
@@ -10,48 +10,8 @@ type Row = [string,string];
 
 export class MasterView {
   constructor(
-    private alerts: ToastController
   ) { }
 
-  async addExam(data: any) {
-
-    const alert =  this.alerts.create({
-      message: 'Examen añadido al carrito',
-      color: 'success',
-      position: 'top',
-      duration: 2000,
-      buttons: [
-        {
-          text: 'Cerrar',
-          role: 'cancel'
-        }
-      ]
-    });
-
-
-    const dataCart = localStorage.getItem('cart');
-
-    const item = {
-      item: data,
-      quantity: 1
-    };
-
-    if (dataCart !== null) {
-
-      const cart = JSON.parse(dataCart);
-      cart.push(item);
-      localStorage.setItem('cart', JSON.stringify(cart));
-
-      await (await alert).present();
-
-
-    } else {
-      const cart = [];
-      cart.push(item);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      await (await alert).present();
-    }
-  }
 
   formatPrice(data: number) {
     const price = new Intl.NumberFormat('es-CO', {

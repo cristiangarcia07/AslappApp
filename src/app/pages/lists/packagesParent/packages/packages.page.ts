@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, AlertInput, ToastController } from '@ionic/angular';
 import { messageType, Users } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
 import { SpinnerService } from 'src/app/base/services/spinner.service';
@@ -37,9 +37,10 @@ export class PackagesPage extends MasterView implements OnInit {
     private auth: AngularFireAuth,
     private spinner: SpinnerService,
     private al: ToastController,
+    private alert: AlertController,
     private rout: Router
   ) {
-    super(al);
+    super();
   }
 
   ngOnInit() {
@@ -79,6 +80,8 @@ export class PackagesPage extends MasterView implements OnInit {
     );
 
   }
+
+
 
   getAllPaquetes(uid: string) {
     this.afs.getAllDocWithParams('packages', 'created', uid).subscribe(res => {
@@ -174,12 +177,13 @@ export class PackagesPage extends MasterView implements OnInit {
 
     });
 
-
   }
 
   async deletePackage(id: string){
     const alert = this.al.create({
       message: 'Quiere borrar el paquete?',
+      position: 'middle',
+      color: 'danger',
       header: 'Borrar paquete',
       buttons: [
         {
@@ -187,7 +191,10 @@ export class PackagesPage extends MasterView implements OnInit {
           role: 'cancel',
           handler: async () => {
             const cancelAl = this.al.create({
-              message: 'Eliminacion de paquete cancelada'
+              message: 'Eliminacion de paquete cancelada',
+              position: 'middle',
+              duration: 1500,
+              color: 'danger'
             });
             await (await cancelAl).present();
           }
@@ -198,7 +205,10 @@ export class PackagesPage extends MasterView implements OnInit {
             this.afs.deleteDoc('packages',id).then(
               async ()=>{
                 const delAlert = this.al.create({
-                  message: 'Paquete Borrado con Exito'
+                  message: 'Paquete Borrado con Exito',
+                  position: 'middle',
+                  duration: 1500,
+                  color: 'success'
                 });
                 await (await delAlert).present();
               }
@@ -210,5 +220,58 @@ export class PackagesPage extends MasterView implements OnInit {
     });
 
     await (await alert).present();
+  }
+
+  async createPackage() {
+    const al = this.alert.create({
+      inputs: [
+        {
+          name: 'packageName',
+          type: 'text',
+          max: 50,
+          placeholder: 'Ingresa un nombre',
+        }
+      ],
+      header: 'Crear Paquete',
+      buttons: [
+        {
+          text: 'Crear Paquete',
+          handler: (input) => {
+            this.afs.createDocFrist({
+              nombre: input.packageName,
+              created: this.userId,
+              exams: []
+            }, 'packages').then(
+              async (res) => {
+                console.log(res);
+                const confAl = this.al.create({
+                  message: 'Paquete creado con exito',
+                  color: 'success',
+                  duration: 1500,
+                  position: 'middle'
+                });
+
+                await (await confAl).present();
+              }
+            ).catch(async (_err) => {
+              const confAl = this.al.create({
+                message: 'Error al crear el paquete',
+                color: 'danger',
+                position: 'middle',
+                duration: 1500
+              });
+
+              await (await confAl).present();
+            });
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        }
+      ]
+    });
+
+    await (await al).present();
   }
 }

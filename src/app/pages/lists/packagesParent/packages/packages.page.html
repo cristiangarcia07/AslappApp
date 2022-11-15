@@ -34,8 +34,11 @@
             <ion-card-title>MIS PAQUETES</ion-card-title>
           </ion-card-header>
           <ion-card-content>
+            <ion-item>
+              <ion-button color="success" (click)="this.createPackage()" size="large"><ion-icon name="bag-add-outline" size="medium"></ion-icon></ion-button>
+            </ion-item>
             <ion-searchbar [debounce]="1000" [(ngModel)]="searchText2"></ion-searchbar>
-
+            
             <ion-list *ngFor="let paquete of paquetes | filter: searchText2">
               <ion-item-sliding>
                 <ion-item>

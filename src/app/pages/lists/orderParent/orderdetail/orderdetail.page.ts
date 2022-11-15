@@ -15,7 +15,7 @@ export class OrderdetailPage extends MasterView implements OnInit {
     private auth: AngularFireAuth,
     private al: ToastController
   ) {
-    super(al);
+    super();
    }
 
   ngOnInit() {

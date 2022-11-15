@@ -37,7 +37,7 @@ export class CartPage  extends MasterView implements OnInit {
     private actRout: ActivatedRoute,
     private al: ToastController
   ) {
-    super(al);
+    super();
   }
 
   ngOnInit() {
