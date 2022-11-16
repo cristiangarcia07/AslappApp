@@ -1,0 +1,42 @@
+<app-header title="Editar Paquete"></app-header>
+
+<ion-content>
+  <ion-item>
+    <ion-button color="success" (click)="this.edit()">Editar Paquete</ion-button>
+  </ion-item>
+  <ion-list *ngIf="this.exams">
+    <ion-list-header>
+      <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+        CUPS
+      </ion-col>
+      <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+        EXAMEN
+      </ion-col>
+      <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+        PRECIO
+      </ion-col>
+      <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+        AYUNO
+      </ion-col>
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let item of this.exams; index as i">
+      <ion-item>
+        <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+          {{item.CUPS}}
+        </ion-col>
+        <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+          {{item.NOMBRE_OMS}}
+        </ion-col>
+        <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+          {{item.PRECIO}}
+        </ion-col>
+        <ion-col size="3" size-lg="3" size-sm="3" size-xs="3">
+          {{item.AYUNO}}
+        </ion-col>
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option color="danger" (click)="this.deleteExam(i)"><ion-icon name="trash"></ion-icon></ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

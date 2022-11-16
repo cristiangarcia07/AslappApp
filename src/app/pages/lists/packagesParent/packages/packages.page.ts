@@ -140,6 +140,13 @@ export class PackagesPage extends MasterView implements OnInit {
       });
   }
 
+  editPackage(exams: any, packageId: any) {
+    this.filterExams(exams);
+    localStorage.setItem('examsList', JSON.stringify(exams));
+    localStorage.setItem('packageInfo', packageId);
+    this.rout.navigateByUrl('user/package_edit');
+  }
+
   viewDetails(exams: any) {
     this.filterExams(exams);
     localStorage.setItem('examsList', JSON.stringify(exams));

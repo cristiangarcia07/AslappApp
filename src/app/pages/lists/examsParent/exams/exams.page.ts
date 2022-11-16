@@ -118,9 +118,9 @@ export class ExamsPage extends MasterView implements OnInit {
 
   async addExam(data: any) {
     const packList = [];
-
-    if (!this.paquetes) {
+    if (!this.paquetes.length) {
       this.addingExam(data);
+
     } else {
       this.paquetes.map(pac => {
         packList.push({
@@ -144,6 +144,10 @@ export class ExamsPage extends MasterView implements OnInit {
         inputs: packList,
         buttons: [
           {
+            text: 'cancelar',
+            role: 'cancel'
+          },
+          {
             text: 'Subir',
             handler: async (sel) => {
               console.log(sel);
@@ -156,7 +160,7 @@ export class ExamsPage extends MasterView implements OnInit {
                   exams: paqueteSelecci[0].exams
                 }).then(async (res) => {
                   const l = this.al.create({
-                    message: 'Examen editado exitosamente',
+                    message: 'Examen añadido al paquete exitosamente',
                     position: 'top',
                     color: 'success',
                     duration: 1500

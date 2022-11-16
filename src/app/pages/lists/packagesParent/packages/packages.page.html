@@ -52,7 +52,7 @@
                   <ion-item-option (click)="this.viewDetails(paquete.exams)">
                     <ion-icon name="eye"></ion-icon>
                   </ion-item-option>
-                  <ion-item-option color="warning">
+                  <ion-item-option color="warning" (click)="this.editPackage(paquete.exams, paquete.id)">
                     <ion-icon name="pencil"></ion-icon>
                   </ion-item-option>
                   <ion-item-option color="danger" (click)="this.deletePackage(paquete.id)">
