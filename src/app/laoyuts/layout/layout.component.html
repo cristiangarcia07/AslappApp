@@ -7,7 +7,10 @@
             <ion-img [src]="this.logo" style="width: 150px; height: 150px;"></ion-img>
           </ion-list-header>
           <br>
-          <ion-note> Hola! cgarcia@asalud.clinic</ion-note><br>
+          <ng-template #usern>
+            <ion-note>Hola {{this.user.nombre}}!</ion-note>
+          </ng-template>
+          <ion-note *ngIf="user.nombre === ''; else usern"> Hola {{this.user.email}}!</ion-note><br>
           <ion-button (click)="logout()">
             Cerrar sesion
           </ion-button>

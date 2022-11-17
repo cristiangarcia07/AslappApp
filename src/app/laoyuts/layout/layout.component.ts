@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { User } from 'src/app/base/models/generalModels';
+import { FirestoreService } from 'src/app/base/services/firestore.service';
 
 @Component({
   selector: 'app-layout',
@@ -10,6 +13,8 @@ import { Router } from '@angular/router';
 export class LayoutComponent implements OnInit {
 
   logo = '../../../assets/img/Aslapp-8.png';
+
+  user: User;
 
   public appPages = [
     { title: 'Dashboard', url: '/user/dashboard', icon: 'home' },
@@ -21,14 +26,35 @@ export class LayoutComponent implements OnInit {
   constructor(
     private router: Router,
     private auth: AngularFireAuth,
+    private al: ToastController,
+    private afs: FirestoreService
     ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.auth.user.subscribe(
+      res => {
+        this.afs.getDoc<User>('users',res.uid).subscribe(resp =>{
+          this.user = resp;
+        });
+      }
+    );
+  }
+
+  initPage() {
+
+  }
 
   logout(){
     this.auth.signOut()
     .then(
-      ()=>{
+      async ()=>{
+        const al = this.al.create({
+          message: 'Hasta luego',
+          color: 'danger',
+          position: 'middle',
+          duration: 1500
+        });
+        await (await al).present();
         window.localStorage.removeItem('currentUser');
         window.location.reload();
         this.router.navigate(['/login']);
