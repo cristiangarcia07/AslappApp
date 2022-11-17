@@ -45,11 +45,8 @@ export class PackagesPage extends MasterView implements OnInit {
 
   ngOnInit() {
     this.spinner.showLoader('Cargando Paquetes');
-    setTimeout(() => {
       this.initUser();
       this.getAllPackges();
-      this.spinner.hideSpinner();
-    }, 1000);
   }
 
   getAllPackges() {
@@ -108,6 +105,8 @@ export class PackagesPage extends MasterView implements OnInit {
           });
         });
       });
+      this.spinner.hideSpinner();
+
 
     } else {
       this.afs.getAllDoc('exams-' + convenio).subscribe(res => {
@@ -119,6 +118,8 @@ export class PackagesPage extends MasterView implements OnInit {
           });
         });
       });
+      this.spinner.hideSpinner();
+
     }
 
   }

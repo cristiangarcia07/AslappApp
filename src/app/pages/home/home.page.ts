@@ -28,10 +28,9 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.spinner.showLoader('Cargando Ordenes');
-    setTimeout(() => {
-      this.initPage();
-      this.spinner.hideSpinner();
-    }, 1000);
+    this.initPage();
+    this.spinner.hideSpinner();
+
   }
 
   initPage(){

@@ -27,11 +27,8 @@ export class OrdersPage implements OnInit {
 
   ngOnInit() {
     this.spinner.showLoader('Cargando Ordenes');
-    setTimeout(() => {
       this.initUser();
 
-      this.spinner.hideSpinner();
-    }, 1000);
   }
 
   initUser() {
@@ -53,6 +50,7 @@ export class OrdersPage implements OnInit {
       });
 
       this.ordens.forEach(ordn => ordn.createdDate = ordn.createdDate.toDate());
+      this.spinner.hideSpinner();
     });
   }
 

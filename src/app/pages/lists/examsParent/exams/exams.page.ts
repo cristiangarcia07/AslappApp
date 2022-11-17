@@ -45,9 +45,7 @@ export class ExamsPage extends MasterView implements OnInit {
   ngOnInit() {
     this.spinner.showLoader('Cargando Examenes');
     this.initAll();
-    setTimeout(() => {
-      this.spinner.hideSpinner();
-    }, 1500);
+
   }
 
 
@@ -91,6 +89,7 @@ export class ExamsPage extends MasterView implements OnInit {
           });
         });
         this.cloner.push(this.exams);
+        this.spinner.hideSpinner();
       });
 
     } else {
@@ -104,6 +103,7 @@ export class ExamsPage extends MasterView implements OnInit {
         });
 
         this.cloner.push(this.exams);
+        this.spinner.hideSpinner();
       });
     }
 

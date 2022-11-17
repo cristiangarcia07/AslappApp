@@ -5,21 +5,22 @@ import { LoadingController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class SpinnerService {
+  spinner: any;
   constructor(
     private spinnerCtrl: LoadingController
   ) { }
 
-  showLoader(message: string) {
-    this.spinnerCtrl.create({
+  async showLoader(message: string) {
+    this.spinner = this.spinnerCtrl.create({
       message,
       spinner: 'dots'
-    }).then((res) => {
-      res.present();
     });
+
+    await (await this.spinner).present();
   }
 
-  hideSpinner() {
-    this.spinnerCtrl.dismiss();
+  async hideSpinner() {
+    await (await this.spinner).dismiss();
   }
 
 

@@ -43,18 +43,12 @@ export class CartPage  extends MasterView implements OnInit {
   ngOnInit() {
     this.spinner.showLoader('Cargando Examenes');
     if(this.actRout.snapshot.params.uid){
-      setTimeout(() => {
         this.uidOrd = String(this.actRout.snapshot.params.uid);
         this.getCartData();
-        this.spinner.hideSpinner();
-      }, 1000);
     }else{
-      setTimeout(() => {
         this.observaciones = '';
         this.initPage();
         this.getCartData();
-        this.spinner.hideSpinner();
-      }, 1000);
     }
   }
 
@@ -70,6 +64,8 @@ export class CartPage  extends MasterView implements OnInit {
         );
       }
     );
+    this.spinner.hideSpinner();
+
   }
 
   totalCalculate(){
@@ -107,7 +103,10 @@ export class CartPage  extends MasterView implements OnInit {
       localStorage.setItem('cart','[]');
       this.totalCalculate();
       this.calculateComision();
+
     }
+    this.spinner.hideSpinner();
+
   }
 
   async genCotiza(){
