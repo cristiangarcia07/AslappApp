@@ -14,7 +14,7 @@ export class LayoutComponent implements OnInit {
 
   logo = '../../../assets/img/Aslapp-8.png';
 
-  user: User;
+  user: User = {};
 
   public appPages = [
     { title: 'Dashboard', url: '/user/dashboard', icon: 'home' },
@@ -31,6 +31,10 @@ export class LayoutComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.initPage();
+  }
+
+  initPage() {
     this.auth.user.subscribe(
       res => {
         this.afs.getDoc<User>('users',res.uid).subscribe(resp =>{
@@ -38,10 +42,6 @@ export class LayoutComponent implements OnInit {
         });
       }
     );
-  }
-
-  initPage() {
-
   }
 
   logout(){

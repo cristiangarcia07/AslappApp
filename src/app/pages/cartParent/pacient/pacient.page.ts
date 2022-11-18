@@ -79,6 +79,20 @@ export class PacientPage implements OnInit {
     });
   }
 
+  totalCalculate(){
+    if(this.exams){
+      let total = 0;
+
+      this.exams.map(
+        exam => {
+          total += exam.item.PRECIO * exam.quantity;
+          this.total = total;
+        }
+      );
+    }
+
+  }
+
   async createOrder() {
     const ordn = 'ORDN-' + this.refOrde();
     this.idOrdn = ordn;
@@ -107,6 +121,7 @@ export class PacientPage implements OnInit {
         {
           text: 'Crear',
           handler: () => {
+            this.totalCalculate();
             this.afs.createDocFrist({
               paciente: this.form.value,
               exams: this.exams,

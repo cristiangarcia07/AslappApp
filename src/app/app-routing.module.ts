@@ -22,6 +22,7 @@ const routes: Routes = [
       { path: RouteConstants.ORDEN_DETAIL, loadChildren: () => import('./pages/lists/orderParent/orderdetail/orderdetail.module').then(m => m.OrderdetailPageModule) },
       { path: RouteConstants.PACKAGES_LIST, loadChildren: () => import('./pages/lists/packagesParent/packages/packages.module').then(m => m.PackagesPageModule) },
       { path: RouteConstants.CART_PAGE, loadChildren: () => import('./pages/cartParent/tabscart/tabscart.module').then(m => m.TabscartPageModule) },
+      { path: RouteConstants.CART_PAGE + '/:id', loadChildren: () => import('./pages/cartParent/tabscart/tabscart.module').then(m => m.TabscartPageModule) },
       { path: RouteConstants.EXAM_DETAIL, loadChildren: () => import('./pages/lists/examsParent/examdetail/examdetail.module').then(m => m.ExamdetailPageModule) },
       { path: RouteConstants.PACKAGE_DETAIL, loadChildren: () => import('./pages/lists/packagesParent/packagedetail/packagedetail.module').then(m => m.PackagedetailPageModule) },
       { path: RouteConstants.PACKAGE_EDIT, loadChildren: () => import('./pages/lists/packagesParent/packageedit/packageedit.module').then(m => m.PackageeditPageModule) }

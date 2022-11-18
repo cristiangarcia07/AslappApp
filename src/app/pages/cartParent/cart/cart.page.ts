@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { User } from 'src/app/base/models/generalModels';
+import { Ordens, User } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
 import { SpinnerService } from 'src/app/base/services/spinner.service';
 import { MasterView } from 'src/app/base/views/masterView';
@@ -42,14 +42,23 @@ export class CartPage  extends MasterView implements OnInit {
 
   ngOnInit() {
     this.spinner.showLoader('Cargando Examenes');
-    if(this.actRout.snapshot.params.uid){
-        this.uidOrd = String(this.actRout.snapshot.params.uid);
-        this.getCartData();
+    if(this.actRout.snapshot.params.id){
+        this.uidOrd = String(this.actRout.snapshot.params.id);
+        this.initPage();
+        this.getCartExams(this.uidOrd);
     }else{
         this.observaciones = '';
         this.initPage();
         this.getCartData();
     }
+  }
+
+  getCartExams(uid: string) {
+    this.afs.getDoc<Ordens>('ordenes', uid).subscribe((res: Ordens) => {
+      this.exams = res.exams;
+      this.totalCalculate();
+    });
+    this.spinner.hideSpinner();
   }
 
   initPage(){

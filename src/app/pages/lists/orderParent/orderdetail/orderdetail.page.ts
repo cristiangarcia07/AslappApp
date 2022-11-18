@@ -32,6 +32,7 @@ export class OrderdetailPage extends MasterView implements OnInit {
 
   getOrder() {
     this.orderDetail = JSON.parse(localStorage.getItem('orden'));
+    console.log(this.orderDetail);
   }
 
 }

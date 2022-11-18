@@ -15,8 +15,21 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: ':id',
+        redirectTo: 'examsList/:id',
+        pathMatch: 'full'
+      },
+      {
         path: 'examsList',
         loadChildren: () => import('../cart/cart.module').then(m => m.CartPageModule)
+      },
+      {
+        path: 'examsList/:id',
+        loadChildren: () => import('../cart/cart.module').then(m => m.CartPageModule)
+      },
+      {
+        path: 'pacientForm/:id',
+        loadChildren: () => import('../pacient/pacient.module').then(m => m.PacientPageModule)
       },
       {
         path: 'pacientForm',
