@@ -29,12 +29,12 @@ export class CartPage  extends MasterView implements OnInit {
   total = 0;
   uidOrd: any;
   observaciones: any;
+  ordEdit: any;
 
   constructor(
     private auth: AngularFireAuth,
     private afs: FirestoreService,
     private spinner: SpinnerService,
-    private actRout: ActivatedRoute,
     private al: ToastController
   ) {
     super();
@@ -42,22 +42,20 @@ export class CartPage  extends MasterView implements OnInit {
 
   ngOnInit() {
     this.spinner.showLoader('Cargando Examenes');
-    if(this.actRout.snapshot.params.id){
-        this.uidOrd = String(this.actRout.snapshot.params.id);
-        this.initPage();
-        this.getCartExams(this.uidOrd);
-    }else{
-        this.observaciones = '';
-        this.initPage();
-        this.getCartData();
+    if (localStorage.getItem('ordEdit')) {
+      this.ordEdit = JSON.parse(localStorage.getItem('ordEdit'));
+      this.initPage();
+      this.getCartExams();
+    } else {
+      this.observaciones = '';
+      this.initPage();
+      this.getCartData();
     }
   }
 
-  getCartExams(uid: string) {
-    this.afs.getDoc<Ordens>('ordenes', uid).subscribe((res: Ordens) => {
-      this.exams = res.exams;
-      this.totalCalculate();
-    });
+  getCartExams() {
+    this.exams = this.ordEdit.exams;
+    this.totalCalculate();
     this.spinner.hideSpinner();
   }
 
@@ -210,29 +208,62 @@ export class CartPage  extends MasterView implements OnInit {
     let cantd = dataCar[i].quantity;
 
     if (type) {
-      cantd = cantd + 1;
-      dataCar[i].quantity = cantd;
-      this.exams = dataCar;
-      localStorage.removeItem('cart');
-      localStorage.setItem('cart', JSON.stringify(dataCar));
+      if (!localStorage.getItem('ordEdit')) {
+        cantd = cantd + 1;
+        dataCar[i].quantity = cantd;
+        this.exams = dataCar;
+        localStorage.removeItem('cart');
+        localStorage.setItem('cart', JSON.stringify(dataCar));
+      } else {
+        cantd = cantd + 1;
+        dataCar[i].quantity = cantd;
+        this.exams = dataCar;
+        this.ordEdit.exams = this.exams;
+        localStorage.setItem('ordEdit', JSON.stringify(this.ordEdit));
+        this.totalCalculate();
+        this.getCartExams();
+        this.calculateComision();
+      }
     }
     else if (type === false && cantd >= 2) {
-      cantd = cantd - 1;
-      dataCar[i].quantity = cantd;
-      this.exams = dataCar;
-      localStorage.removeItem('cart');
-      localStorage.setItem('cart', JSON.stringify(dataCar));
+      if (!localStorage.getItem('ordEdit')) {
+        cantd = cantd - 1;
+        dataCar[i].quantity = cantd;
+        this.exams = dataCar;
+        localStorage.removeItem('cart');
+        localStorage.setItem('cart', JSON.stringify(dataCar));
+      } else {
+        cantd = cantd - 1;
+        dataCar[i].quantity = cantd;
+        this.exams = dataCar;
+        this.ordEdit.exams = this.exams;
+        localStorage.setItem('ordEdit', JSON.stringify(this.ordEdit));
+        this.totalCalculate();
+        this.getCartExams();
+        this.calculateComision();
+      }
     }
     else if (type === false && cantd === 1) {
+      if (!localStorage.getItem('ordEdit')) {
+        dataCar.splice(i, 1);
+        this.exams = dataCar;
+        localStorage.removeItem('cart');
+        localStorage.setItem('cart', JSON.stringify(dataCar));
+        this.total = 0;
+        this.totalCalculate();
+        this.getCartData();
+        this.calculateComision();
+        return;
+      }
       dataCar.splice(i, 1);
       this.exams = dataCar;
-      localStorage.removeItem('cart');
-      localStorage.setItem('cart', JSON.stringify(dataCar));
+      this.ordEdit.exams = this.exams;
+      localStorage.setItem('ordEdit', JSON.stringify(this.ordEdit));
       this.total = 0;
+      this.totalCalculate();
+      this.getCartExams();
+      this.calculateComision();
     }
-    this.totalCalculate();
-    this.getCartData();
-    this.calculateComision();
   }
 
   emptyCart(): void {

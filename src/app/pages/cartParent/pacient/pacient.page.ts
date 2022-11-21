@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, ToastController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { User } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
 
@@ -27,20 +27,47 @@ export class PacientPage implements OnInit {
   pagoRef = '';
   idOrdn: any;
   exams = [];
+  ordEdit: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private auth: AngularFireAuth,
     private afs: FirestoreService,
     private toast: ToastController,
-    private rout: Router,
+    private rout: Router
   ) {
 
   }
 
   ngOnInit() {
-    this.initForm();
     this.initPage();
+    this.initForm();
+
+  }
+
+  async getEditExams() {
+    const al = this.toast.create({
+      message: 'Orden editada correctamente',
+      color: 'primary',
+      position: 'middle',
+      duration: 1500
+    });
+
+    this.afs.updateDoc('ordenes', this.ordEdit.id, {
+      paciente: this.form.value,
+      exams: this.ordEdit.exams,
+      observaciones: this.observaciones,
+      total: this.total
+    });
+
+    await (await al).present();
+    localStorage.removeItem('ordEdit');
+    this.rout.navigateByUrl('user/ordens');
+  }
+
+  cancelEdit() {
+    localStorage.removeItem('ordEdit');
+    document.location.reload();
   }
 
   getCartData(){
@@ -57,12 +84,32 @@ export class PacientPage implements OnInit {
         this.uidUser = res?.uid;
         this.afs.getDoc<User>('users',this.uidUser).subscribe(
           (resp)=>{
-            this.user = resp;
-            this.getCartData();
+            if (localStorage.getItem('ordEdit')) {
+              this.ordEdit = JSON.parse(localStorage.getItem('ordEdit'));
+              this.initPacientForm();
+            } else {
+              this.user = resp;
+              this.getCartData();
+            }
           }
         );
       }
     );
+  }
+
+  initPacientForm() {
+    this.form = this.formBuilder.group({
+      NOMBRE: [this.ordEdit.paciente.NOMBRE, Validators.required],
+      TIPOID: [this.ordEdit.paciente.TIPOID],
+      NUMERO: [this.ordEdit.paciente.NUMERO],
+      CORREO: [this.ordEdit.paciente.CORREO, Validators.required],
+      DIRECCION: [this.ordEdit.paciente.DIRECCION],
+      TELEFONO: [this.ordEdit.paciente.TELEFONO, Validators.required],
+      GENERO: [this.ordEdit.paciente.GENERO, Validators.required],
+      EDAD: this.calculateAge(this.ordEdit.paciente.FECHANAM),
+      FECHANAM: [this.ordEdit.paciente.FECHANAM, Validators.required]
+    });
+    this.observaciones = this.ordEdit.observaciones;
   }
 
   initForm() {
@@ -96,7 +143,6 @@ export class PacientPage implements OnInit {
   async createOrder() {
     const ordn = 'ORDN-' + this.refOrde();
     this.idOrdn = ordn;
-    console.log(ordn);
     console.log(this.idOrdn);
 
     const ordAl = this.toast.create({
@@ -171,8 +217,6 @@ export class PacientPage implements OnInit {
 
     this.age = age;
     this.fechaNam = birthDate.toLocaleDateString();
-    console.log(this.fechaNam);
-    console.log(this.age);
 
     this.form.patchValue({ edad: this.age });
 

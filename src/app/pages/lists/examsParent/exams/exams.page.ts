@@ -119,7 +119,11 @@ export class ExamsPage extends MasterView implements OnInit {
   async addExam(data: any) {
     const packList = [];
     if (!this.paquetes.length) {
-      this.addingExam(data);
+      if (!localStorage.getItem('ordEdit')) {
+        this.addingExam(data);
+        return;
+      }
+      this.updatingOrdn(data);
 
     } else {
       this.paquetes.map(pac => {
@@ -161,7 +165,7 @@ export class ExamsPage extends MasterView implements OnInit {
                 }).then(async (res) => {
                   const l = this.al.create({
                     message: 'Examen añadido al paquete exitosamente',
-                    position: 'top',
+                    position: 'middle',
                     color: 'success',
                     duration: 1500
                   });
@@ -203,18 +207,37 @@ export class ExamsPage extends MasterView implements OnInit {
       });
   }
 
+  private async updatingOrdn(data: any) {
+    const alert = this.al.create({
+      message: 'Orden actualizada',
+      color: 'success',
+      position: 'middle',
+      duration: 2000,
+    });
+
+    let dataCart;
+
+    if (localStorage.getItem('ordEdit')) {
+      dataCart = JSON.parse(localStorage.getItem('ordEdit'));
+    }
+
+    const item = {
+      item: data,
+      quantity: 1
+    };
+
+    dataCart.exams.push(item);
+
+    localStorage.setItem('ordEdit', JSON.stringify(dataCart));
+    await (await alert).present();
+  }
+
   private async addingExam(data: any) {
     const alert = this.al.create({
       message: 'Examen añadido al carrito',
       color: 'success',
-      position: 'top',
-      duration: 2000,
-      buttons: [
-        {
-          text: 'Cerrar',
-          role: 'cancel'
-        }
-      ]
+      position: 'middle',
+      duration: 2000
     });
 
     const dataCart = localStorage.getItem('cart');

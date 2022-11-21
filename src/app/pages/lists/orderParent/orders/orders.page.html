@@ -24,7 +24,10 @@
         </ion-label>
       </ion-item>
       <ion-item-options>
-        <ion-item-option *ngIf="orden.estado === 'pendiente'" color="warning" routerLink="/user/cart/{{orden.id}}">
+        <ion-item-option *ngIf="orden.estado === 'pendiente'" color="success" (click)="this.completeOrder(orden.id)">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option *ngIf="orden.estado === 'pendiente'" color="warning" (click)="this.ordEdit(orden)">
           <ion-icon name="pencil" ></ion-icon>
         </ion-item-option>
         <ion-item-option *ngIf="orden.estado === 'pendiente'" color="danger" (click)="this.deleteOrden(orden.id)">

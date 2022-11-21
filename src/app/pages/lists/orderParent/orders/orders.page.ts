@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {  Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { Ordens } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
 import { SpinnerService } from 'src/app/base/services/spinner.service';
 
@@ -54,25 +55,54 @@ export class OrdersPage implements OnInit {
     });
   }
 
+  async completeOrder(uid: string) {
+    const al = this.al.create({
+      message: 'Quiere completar la orden?(No podra editarla ni eliminarla)',
+      color: 'warning',
+      position: 'middle',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Completar',
+          handler: async () => {
+            const aler = this.al.create({
+              message: 'Orden completada exitosamente',
+              color: 'success',
+              position: 'middle',
+              duration: 1500
+            });
+
+            this.afs.updateDoc('ordenes', uid, {
+              estado: 'completado'
+            });
+
+            await (await aler).present();
+          }
+        }
+      ]
+    });
+
+    await (await al).present();
+  }
+
+  ordEdit(ord: Ordens) {
+    localStorage.setItem('ordEdit', JSON.stringify(ord));
+    this.rout.navigateByUrl('/user/cart');
+  }
+
   async deleteOrden(uid: string) {
     let alert: any;
     const confirmAl = this.al.create({
-      header: 'Eliminar Orden?',
       message: 'Desea Eliminar la orden?',
       color: 'danger',
       position: 'middle',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel',
-          handler: async () => {
-            const cancelAl = this.al.create({
-              message: 'Eliminacion de orden cancelada',
-              color: 'success',
-              position: 'top'
-            });
-            await (await cancelAl).present();
-          }
+          role: 'cancel'
         },
         {
           text: 'Eliminar',
@@ -81,18 +111,16 @@ export class OrdersPage implements OnInit {
               (async () => {
                 alert = this.al.create({
                   message: 'Orden Eliminada con Exito',
-                  header: 'Orden Eliminada',
-                  position: 'top',
-                  color: 'warning'
+                  position: 'middle',
+                  color: 'success'
                 });
                 await (await alert).present();
               })
               .catch(async () => {
                 alert = this.al.create({
-                  header: 'Error',
                   message: 'Error al eliminar la orden',
                   color: 'danger',
-                  position: 'top'
+                  position: 'middle'
                 });
 
                 await (await alert).present();

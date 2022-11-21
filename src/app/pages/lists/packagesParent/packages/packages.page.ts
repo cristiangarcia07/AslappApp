@@ -154,37 +154,12 @@ export class PackagesPage extends MasterView implements OnInit {
     this.rout.navigateByUrl('user/package_detail');
   }
 
-
-  async addPackage(examens: any){
-    this.filterExams(examens);
-
-    this.paquete.map(async (pac) => {
-      const dataCart = localStorage.getItem('cart');
-
-      const item = {
-        item: pac,
-        quantity: 1
-      };
-
-      const cart = JSON.parse(dataCart);
-      cart.push(item);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      const packAl = this.al.create({
-        message: 'Paquete añadido al carrito',
-        color: 'success',
-        duration: 2000,
-        position: 'top',
-        buttons: [
-          {
-            text: 'cerrar',
-            role: 'cancel'
-          }
-        ]
-      });
-      await (await packAl).present();
-
-    });
-
+  addPack(examns: any) {
+    if (!localStorage.getItem('ordEdit')) {
+      this.addPackage(examns);
+      return;
+    }
+    this.editOrdn(examns);
   }
 
   async deletePackage(id: string){
@@ -197,15 +172,6 @@ export class PackagesPage extends MasterView implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          handler: async () => {
-            const cancelAl = this.al.create({
-              message: 'Eliminacion de paquete cancelada',
-              position: 'middle',
-              duration: 1500,
-              color: 'danger'
-            });
-            await (await cancelAl).present();
-          }
         },
         {
           text: 'Borrar',
@@ -281,5 +247,72 @@ export class PackagesPage extends MasterView implements OnInit {
     });
 
     await (await al).present();
+  }
+
+
+  private async editOrdn(data: any) {
+
+    this.filterExams(data);
+
+    this.paquete.map(async (pac) => {
+      let dataCart = JSON.parse(localStorage.getItem('ordEdit'));
+      dataCart = dataCart.exams;
+
+      const item = {
+        item: pac,
+        quantity: 1
+      };
+
+      const cart = JSON.parse(dataCart);
+      cart.push(item);
+      localStorage.setItem('ordEdit', JSON.stringify(cart));
+      const packAl = this.al.create({
+        message: 'Paquete añadido al carrito',
+        color: 'success',
+        duration: 2000,
+        position: 'middle',
+        buttons: [
+          {
+            text: 'cerrar',
+            role: 'cancel'
+          }
+        ]
+      });
+      await (await packAl).present();
+
+    });
+
+  }
+
+  private async addPackage(examens: any){
+    this.filterExams(examens);
+
+    this.paquete.map(async (pac) => {
+      const dataCart = localStorage.getItem('cart');
+
+      const item = {
+        item: pac,
+        quantity: 1
+      };
+
+      const cart = JSON.parse(dataCart);
+      cart.push(item);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      const packAl = this.al.create({
+        message: 'Paquete añadido al carrito',
+        color: 'success',
+        duration: 2000,
+        position: 'middle',
+        buttons: [
+          {
+            text: 'cerrar',
+            role: 'cancel'
+          }
+        ]
+      });
+      await (await packAl).present();
+
+    });
+
   }
 }

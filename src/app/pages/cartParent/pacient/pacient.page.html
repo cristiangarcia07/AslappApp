@@ -2,7 +2,11 @@
 
 <ion-content>
   <form [formGroup]="form" (ngSubmit)="this.createOrder()">
-    <ion-item>
+    <ng-template #edit>
+      <ion-button color="warning" [disabled]="!this.form.valid" (click)="this.getEditExams()">Editar Orden</ion-button>
+      <ion-button color="danger" style="color: #fff;" (click)="this.cancelEdit()">Cancelar Editar Orden</ion-button>
+    </ng-template>
+    <ion-item *ngIf="!this.ordEdit; else edit">
       <ion-button color="success" type="submit" [disabled]="!this.form.valid">Generar Orden</ion-button>
     </ion-item>
     <ion-item>
