@@ -9,6 +9,7 @@ type TableRow = [string,string,string];
 type Row = [string,string];
 
 export class MasterView {
+  pdfObject: any;
   constructor(
   ) { }
 
@@ -23,7 +24,6 @@ export class MasterView {
 
   async generatePdf(orden: any){
     const pdf = new PdfMakeWrapper();
-    const data = orden;
 
     pdf.header(
       await new Img('https://i.ibb.co/5kz6xZg/HEADER-1.png')
@@ -48,7 +48,8 @@ export class MasterView {
     pdf.pageMargins([50,150]);
 
 
-    pdf.create().open();
+    pdf.create().download();
+
   }
 
   createTable(data: Cart[],orden: any): ITable{
