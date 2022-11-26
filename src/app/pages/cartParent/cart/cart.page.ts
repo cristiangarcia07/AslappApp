@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { Ordens, User } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
 import { SpinnerService } from 'src/app/base/services/spinner.service';
@@ -35,9 +35,10 @@ export class CartPage  extends MasterView implements OnInit {
     private auth: AngularFireAuth,
     private afs: FirestoreService,
     private spinner: SpinnerService,
-    private al: ToastController
+    private al: ToastController,
+    plt: Platform
   ) {
-    super();
+    super(plt);
   }
 
   ngOnInit() {

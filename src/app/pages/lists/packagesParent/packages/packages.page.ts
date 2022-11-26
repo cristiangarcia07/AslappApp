@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { AlertController, AlertInput, ToastController } from '@ionic/angular';
+import { AlertController, AlertInput, Platform, ToastController } from '@ionic/angular';
 import { messageType, Users } from 'src/app/base/models/generalModels';
 import { FirestoreService } from 'src/app/base/services/firestore.service';
 import { SpinnerService } from 'src/app/base/services/spinner.service';
@@ -38,9 +38,10 @@ export class PackagesPage extends MasterView implements OnInit {
     private spinner: SpinnerService,
     private al: ToastController,
     private alert: AlertController,
-    private rout: Router
+    private rout: Router,
+    plt: Platform
   ) {
-    super();
+    super(plt);
   }
 
   ngOnInit() {
