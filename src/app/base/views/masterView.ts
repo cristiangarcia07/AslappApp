@@ -54,14 +54,22 @@ export class MasterView {
     pdf.pageMargins([50,150]);
 
 
-    this.pdfObject = pdf.create();
+    if (this.plt.is('android')) {
+      pdf.create().getBuffer((buffer: any) => {
+        const blob = new Blob([buffer], { type: 'application/pdf' });
 
-    this.downloadPdf(orden.numRef);
+        this.file.writeFile(this.file.dataDirectory, `${orden.numRef}.pdf`, blob, { replace: true }).then(fileEntry => {
+          this.fileOpener.open(this.file.dataDirectory + `${orden.numRef}.pdf`, 'application/pdf');
+        });
+      });
+    } else {
+      pdf.create().open();
+    }
 
   }
 
   downloadPdf(name: any) {
-    if (this.plt.is('capacitor')) {
+    if (this.plt.is('android')) {
       this.pdfObject.getBuffer((buffer: any) => {
         const blob = new Blob([buffer], { type: 'application/pdf' });
 
