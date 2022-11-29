@@ -68,23 +68,6 @@ export class MasterView {
 
   }
 
-  downloadPdf(name: any) {
-    if (this.plt.is('android')) {
-      this.pdfObject.getBuffer((buffer: any) => {
-        const blob = new Blob([buffer], { type: 'application/pdf' });
-
-        // Save the PDF to the data Directory of our App
-        this.file.writeFile(this.file.dataDirectory, name, blob, { replace: true }).then(fileEntry => {
-          // Open the PDf with the correct OS tools
-          this.fileOpener.open(this.file.dataDirectory + name, 'application/pdf');
-        });
-      });
-    } else {
-      // On a browser simply use download!
-      this.pdfObject.open();
-    }
-  }
-
   createTable(data: Cart[],orden: any): ITable{
     return new Table([
       ['EXAMEN','AYUNO','PRECIO'],
