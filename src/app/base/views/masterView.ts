@@ -2,8 +2,8 @@ import { AlertController, Platform, ToastController } from '@ionic/angular';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Cell, Img, ITable, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import { Cart } from '../models/generalModels';
-import { FileOriginal } from '@ionic-native/file';
-import { FileOpenerOriginal } from '@ionic-native/file-opener';
+import { FileOpener } from '@ionic-native/file-opener';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 
 
@@ -13,13 +13,11 @@ type Row = [string,string];
 
 export class MasterView {
   pdfObject: any;
-  file: FileOriginal;
-  fileOpener: FileOpenerOriginal;
   constructor(
     public plt: Platform,
   ) { }
-
-
+  
+  
   formatPrice(data: number) {
     const price = new Intl.NumberFormat('es-CO', {
       minimumFractionDigits: 0
@@ -54,14 +52,19 @@ export class MasterView {
     pdf.pageMargins([50,150]);
 
 
-    if (this.plt.is('android')) {
-      pdf.create().getBuffer((buffer: any) => {
-        const blob = new Blob([buffer], { type: 'application/pdf' });
+    if (this.plt.is('android') || this.plt.is('ios')) {
+      pdf.create().getBase64(async (data) => {
+        const path = `${orden.numRef}.pdf`;
 
-        this.file.writeFile(this.file.dataDirectory, `${orden.numRef}.pdf`, blob, { replace: true }).then(fileEntry => {
-          this.fileOpener.open(this.file.dataDirectory + `${orden.numRef}.pdf`, 'application/pdf');
+        const result = await Filesystem.writeFile({
+          path,
+          data,
+          directory: Directory.Documents
         });
+        console.log(result.uri);
+        await FileOpener.open(`${result.uri}`, 'application/pdf');
       });
+      
     } else {
       pdf.create().open();
     }

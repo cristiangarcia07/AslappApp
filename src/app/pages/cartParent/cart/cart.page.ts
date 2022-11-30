@@ -9,6 +9,8 @@ import { MasterView } from 'src/app/base/views/masterView';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Cell, Img, ITable, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import { Cart } from '../../../base/models/generalModels';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { FileOpener } from '@ionic-native/file-opener';
 
 PdfMakeWrapper.setFonts(pdfFonts);
 type TableRow = [string,string,string];
@@ -141,7 +143,21 @@ export class CartPage  extends MasterView implements OnInit {
             );
             pdf.add(this.recommendPdf(data));
             pdf.pageMargins([50,150]);
-            pdf.create().open();
+            if (this.plt.is('android') || this.plt.is('ios')) {
+              pdf.create().getBase64(async (data) => {
+                const path = 'CotizationCart.pdf'
+
+                const result = await Filesystem.writeFile({
+                  path,
+                  data,
+                  directory: Directory.Documents
+                });
+
+                FileOpener.open(`${result.uri}`, 'application/pdf');
+              })
+            } else {
+              pdf.create().open();
+            }
           }
         },
         {
